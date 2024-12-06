@@ -10,6 +10,13 @@ class Page2 extends StatefulWidget {
 }
 
 class _Page2State extends State<Page2> {
+  int _petsIndex = 0;
+  void _petsTapped(int index) {
+    setState(() {
+      _petsIndex = index;
+    });
+  }
+
   List<String> iconame = [
     'Contacts',
     'Calls',
@@ -28,6 +35,10 @@ class _Page2State extends State<Page2> {
     Icon(Icons.pause),
     Icon(Icons.settings)
   ];
+  List<Widget> _petsOptions = <Widget>[
+    Page4search(),
+    Page3home(),
+  ];
   @override
   Widget build(BuildContext context) {
     final style = TextStyle(
@@ -40,17 +51,6 @@ class _Page2State extends State<Page2> {
       fontSize: 19,
       fontStyle: FontStyle.normal,
     );
-    int _petsIndex = 0;
-    const List<Widget> _petsOptions = <Widget>[
-      Page4search(),
-      Page3home(),
-    ];
-
-    void _petsTapped(int index) {
-      setState(() {
-        _petsIndex = index;
-      });
-    }
 
     final size = MediaQuery.of(context);
     return Scaffold(
@@ -114,20 +114,20 @@ class _Page2State extends State<Page2> {
         child: _petsOptions.elementAt(_petsIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: Colors.amber,
+          selectedItemColor: Colors.black,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-                backgroundColor: Colors.black),
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search',
-                backgroundColor: Colors.black),
+              icon: Icon(Icons.search),
+              label: 'Search',
+            ),
           ],
           type: BottomNavigationBarType.fixed,
           currentIndex: _petsIndex,
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Colors.black,
           iconSize: 28,
           onTap: _petsTapped,
           elevation: 5),

@@ -12,11 +12,11 @@ class _Page1State extends State<Page1> {
   @override
   void initState() {
     super.initState();
-    -navigatehome();
+    navigatehome();
   }
 
   navigatehome() async {
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 3));
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Pagelogin()));
   }
