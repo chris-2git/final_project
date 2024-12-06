@@ -87,6 +87,11 @@ class _PageloginState extends State<Pagelogin> {
       fontSize: 18,
       fontStyle: FontStyle.normal,
     );
+    final Style = TextStyle(
+        color: Colors.white,
+        fontStyle: FontStyle.normal,
+        fontSize: 15,
+        fontWeight: FontWeight.w800);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -185,8 +190,8 @@ class _PageloginState extends State<Pagelogin> {
                   height: size.height * 0.15,
                 ),
                 Text(
-                  'Dont have an account?',
-                  style: sty,
+                  'Don' 't have an account?',
+                  style: Style,
                 ),
                 SizedBox(
                   height: size.height * 0.01,
