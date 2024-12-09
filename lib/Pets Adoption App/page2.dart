@@ -140,18 +140,18 @@ class _Page2State extends State<Page2> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
+              icon: Icon(Icons.category),
+              label: 'Category',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.add_shopping_cart),
-              label: 'Shop',
+              icon: Icon(Icons.favorite),
+              label: 'Favourite',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.medical_services,
               ),
-              label: 'Services',
+              label: 'Service',
             ),
           ],
           type: BottomNavigationBarType.fixed,
