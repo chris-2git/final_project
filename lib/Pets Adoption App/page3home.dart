@@ -10,6 +10,11 @@ class Page3home extends StatefulWidget {
 class _Page3homeState extends State<Page3home> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.amber,
+      body: Column(
+        children: [Text('aaaaa')],
+      ),
+    );
   }
 }

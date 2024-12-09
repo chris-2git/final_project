@@ -1,5 +1,8 @@
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
 import 'package:final_project/Pets%20Adoption%20App/page4srch.dart';
+import 'package:final_project/Pets%20Adoption%20App/page5circle.dart';
+import 'package:final_project/Pets%20Adoption%20App/servicepage.dart';
+import 'package:final_project/Pets%20Adoption%20App/shoppage.dart';
 import 'package:flutter/material.dart';
 
 class Page2 extends StatefulWidget {
@@ -36,8 +39,10 @@ class _Page2State extends State<Page2> {
     Icon(Icons.settings)
   ];
   List<Widget> _petsOptions = <Widget>[
-    Page4search(),
     Page3home(),
+    Page4search(),
+    Shoppage(),
+    Serivepage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -94,19 +99,32 @@ class _Page2State extends State<Page2> {
                   );
                 },
               ),
-            )
+            ),
           ],
         ),
       ),
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,
-        backgroundColor: Color.fromARGB(255, 44, 139, 177),
+        backgroundColor: Colors.white,
         title: Text('Fetch & Find', style: style),
         actions: [
-          CircleAvatar(
-            radius: 24,
-            backgroundImage: AssetImage('assets/profile1.jpg'),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Circlepage(),
+                  ));
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CircleAvatar(
+                radius: 24,
+                backgroundColor: Colors.amber,
+                backgroundImage: AssetImage('assets/profile1.jpg'),
+              ),
+            ),
           ),
         ],
       ),
@@ -114,7 +132,7 @@ class _Page2State extends State<Page2> {
         child: _petsOptions.elementAt(_petsIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.amber,
+          unselectedItemColor: Colors.grey,
           selectedItemColor: Colors.black,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -125,12 +143,22 @@ class _Page2State extends State<Page2> {
               icon: Icon(Icons.search),
               label: 'Search',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_shopping_cart),
+              label: 'Shop',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.medical_services,
+              ),
+              label: 'Services',
+            ),
           ],
           type: BottomNavigationBarType.fixed,
           currentIndex: _petsIndex,
           iconSize: 28,
           onTap: _petsTapped,
-          elevation: 5),
+          elevation: 10),
     );
   }
 }

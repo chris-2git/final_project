@@ -1,3 +1,4 @@
+import 'package:final_project/Pets%20Adoption%20App/page2.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:flutter/material.dart';
 
@@ -192,7 +193,13 @@ class _PageregisterState extends State<Pageregister> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Page2(),
+                          ));
+                    },
                     child: Text(
                       'Register',
                       style: Styl,
@@ -212,10 +219,11 @@ class _PageregisterState extends State<Pageregister> {
                     TextButton(
                       onPressed: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Pagelogin(),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Pagelogin(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Login',
