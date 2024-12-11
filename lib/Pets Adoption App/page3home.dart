@@ -1,18 +1,15 @@
+import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
 import 'package:flutter/material.dart';
 
-class Page3home extends StatefulWidget {
-  const Page3home({super.key});
+class Homepage extends StatefulWidget {
+  const Homepage({super.key});
 
   @override
-  State<Page3home> createState() => _Page3homeState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _Page3homeState extends State<Page3home> {
+class _HomepageState extends State<Homepage> {
   List<String> img = [
-    'assets/dogs.png',
-    'assets/cats.png',
-    'assets/dogs.png',
-    'assets/cats.png',
     'assets/dogs.png',
     'assets/cats.png',
     'assets/dogs.png',
@@ -23,6 +20,58 @@ class _Page3homeState extends State<Page3home> {
     'assets/cats.png',
   ];
   List<String> na = [
+    'Dogs',
+    'Cats',
+    'Birds',
+    'Fishes',
+    'Hens',
+    'Ducks',
+    'Rabbits',
+    'Others',
+  ];
+  List<String> imge = [
+    'assets/dogs1.jpg',
+    'assets/cats1.jpg',
+    'assets/dogs2.jpg',
+    'assets/cats2.jpg',
+    'assets/dogs3.jpg',
+    'assets/cats3.jpg',
+    'assets/dogs4.jpg',
+    'assets/cats4.jpg',
+    'assets/dogs5.jpg',
+    'assets/cats5.jpg',
+    'assets/dogs6.jpg',
+    'assets/cats6.jpg',
+    'assets/dogs7.jpg',
+    'assets/cats7.jpg',
+    'assets/dogs8.jpg',
+    'assets/cats8.jpg',
+    'assets/dogs9.jpg',
+    'assets/cats9.jpg',
+  ];
+  List<String> nam = [
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
+  ];
+  List<String> name = [
+    'Dogs',
+    'Cats',
+    'Dogs',
+    'Cats',
     'Dogs',
     'Cats',
     'Dogs',
@@ -62,10 +111,15 @@ class _Page3homeState extends State<Page3home> {
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.normal,
     );
+    final style1 = TextStyle(
+      color: Colors.black,
+      fontWeight: FontWeight.w100,
+      fontStyle: FontStyle.normal,
+    );
 
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 239, 213, 239),
+      backgroundColor: Colors.grey.withAlpha(9),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -76,6 +130,14 @@ class _Page3homeState extends State<Page3home> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.circular(18),
                   ),
                   prefixIcon: Icon(
                     Icons.search_rounded,
@@ -90,10 +152,9 @@ class _Page3homeState extends State<Page3home> {
                 width: size.width * double.infinity,
                 height: size.height * 0.27,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.withOpacity(0.99)),
-                  borderRadius: BorderRadius.circular(15),
-                  color: Color.fromRGBO(18, 11, 144, 1).withOpacity(0.4),
-                ),
+                    border: Border.all(color: Colors.grey.withOpacity(0.99)),
+                    borderRadius: BorderRadius.circular(15),
+                    color: Colors.grey.withRed(9)),
                 child: Row(
                   children: [
                     Column(
@@ -121,10 +182,9 @@ class _Page3homeState extends State<Page3home> {
                           padding: const EdgeInsets.only(left: 36, top: 7),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                shadowColor: Colors.pink,
-                                backgroundColor:
-                                    const Color.fromARGB(255, 162, 0, 212)
-                                        .withOpacity(0.8)),
+                              shadowColor: Colors.pink,
+                              backgroundColor: Colors.blue.withBlue(9),
+                            ),
                             onPressed: () {},
                             child: Text(
                               'Join Us',
@@ -161,12 +221,16 @@ class _Page3homeState extends State<Page3home> {
                       child: Column(
                         children: [
                           CircleAvatar(
+                            backgroundColor: Colors.grey.withRed(9),
                             radius: 34,
                             backgroundImage: AssetImage(
                               img[index],
                             ),
                           ),
-                          Text(na[index])
+                          Text(
+                            na[index],
+                            style: style1,
+                          )
                         ],
                       ),
                     );
@@ -177,14 +241,105 @@ class _Page3homeState extends State<Page3home> {
                 'Recommended Once',
                 style: st,
               ),
-              Container(
-                height: size.height * 900,
-                color: Colors.green,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+              SizedBox(
+                height: size.height * 0.01,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Detailpage(),
+                      ));
+                },
+                child: Container(
+                  height: size.height * 100,
+                  child: GridView.builder(
+                    itemCount: imge.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                        mainAxisSpacing: 14,
+                        crossAxisSpacing: 10),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Container(
+                            width: size.width * 0.7,
+                            height: size.height * 0.20,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(17),
+                                  topRight: Radius.circular(17)),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  imge[index],
+                                ),
+                                scale: 6,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: size.width * 0.7,
+                            height: size.height * 0.15,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(17),
+                                  bottomRight: Radius.circular(17)),
+                              color: Colors.grey.withRed(9),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 4),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Name:${nam[index]}',
+                                      ),
+                                      Text(
+                                        'Breed:${name[index]}',
+                                        style: style1,
+                                      ),
+                                      ElevatedButton.icon(
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Color.fromARGB(
+                                                255, 247, 233, 233)),
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.person,
+                                          color: Colors.green,
+                                          size: 15,
+                                        ),
+                                        label: Column(
+                                          children: [
+                                            Text('Owner'),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.03,
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.save_alt,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                  itemBuilder: (context, index) {},
                 ),
               ),
             ],

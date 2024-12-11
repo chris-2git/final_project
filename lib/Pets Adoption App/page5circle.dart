@@ -25,6 +25,7 @@ class _CirclepageState extends State<Circlepage> {
         fontSize: 14,
         fontWeight: FontWeight.w200,
         fontStyle: FontStyle.normal);
+    final style1 = TextStyle(color: Colors.white, fontSize: 15);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -59,9 +60,9 @@ class _CirclepageState extends State<Circlepage> {
               width: size.width * 0.90,
               height: size.height * 0.33,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
+                border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(145, 78, 78, 0.416).withOpacity(0.20),
+                color: Colors.grey.withRed(9),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -152,35 +153,30 @@ class _CirclepageState extends State<Circlepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: size.width * 0.3,
-                  height: size.height * 0.06,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      color: Colors.green.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Adoption',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.withRed(9)),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.book,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    'Adoption',
+                    style: style1,
                   ),
                 ),
-                Container(
-                  width: size.width * 0.3,
-                  height: size.height * 0.06,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    color: Colors.green.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.withRed(9)),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.favorite,
+                    color: Colors.white,
                   ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Contact Us',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                  label: Text(
+                    'Fav Pets',
+                    style: style1,
                   ),
                 ),
               ],
@@ -191,36 +187,30 @@ class _CirclepageState extends State<Circlepage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  width: size.width * 0.3,
-                  height: size.height * 0.06,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    color: Colors.green.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.withRed(9)),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.translate_outlined,
+                    color: Colors.white,
                   ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Language',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                  label: Text(
+                    'language',
+                    style: style1,
                   ),
                 ),
-                Container(
-                  width: size.width * 0.3,
-                  height: size.height * 0.06,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
-                    color: Colors.green.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(10),
+                ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey.withRed(9)),
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.reviews,
+                    color: Colors.white,
                   ),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Review',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                  label: Text(
+                    'Reviews',
+                    style: style1,
                   ),
                 ),
               ],

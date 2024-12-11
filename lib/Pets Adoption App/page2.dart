@@ -39,9 +39,9 @@ class _Page2State extends State<Page2> {
     Icon(Icons.settings)
   ];
   List<Widget> _petsOptions = <Widget>[
-    Page3home(),
-    Page4search(),
-    Shoppage(),
+    Homepage(),
+    Categorypage(),
+    Favouritepage(),
     Serivepage(),
   ];
   @override
@@ -49,7 +49,8 @@ class _Page2State extends State<Page2> {
     final style = TextStyle(
       color: Color.fromARGB(255, 55, 58, 57),
       fontSize: 23,
-      fontStyle: FontStyle.italic,
+      fontWeight: FontWeight.bold,
+      fontStyle: FontStyle.normal,
     );
     final sty = TextStyle(
       color: Color.fromARGB(255, 55, 58, 57),
@@ -106,7 +107,7 @@ class _Page2State extends State<Page2> {
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.grey.withAlpha(5),
         title: Text('Fetch & Find', style: style),
         actions: [
           GestureDetector(
