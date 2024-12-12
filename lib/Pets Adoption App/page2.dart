@@ -1,8 +1,8 @@
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
-import 'package:final_project/Pets%20Adoption%20App/page4srch.dart';
+import 'package:final_project/Pets%20Adoption%20App/page4cate.dart';
 import 'package:final_project/Pets%20Adoption%20App/page5circle.dart';
 import 'package:final_project/Pets%20Adoption%20App/servicepage.dart';
-import 'package:final_project/Pets%20Adoption%20App/shoppage.dart';
+import 'package:final_project/Pets%20Adoption%20App/favourtiepage.dart';
 import 'package:flutter/material.dart';
 
 class Page2 extends StatefulWidget {
