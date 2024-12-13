@@ -247,10 +247,11 @@ class _HomepageState extends State<Homepage> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Detailpage(),
-                      ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Detailpage(),
+                    ),
+                  );
                 },
                 child: Container(
                   height: size.height * 100,
@@ -279,6 +280,21 @@ class _HomepageState extends State<Homepage> {
                                 fit: BoxFit.cover,
                               ),
                             ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  style: IconButton.styleFrom(
+                                      backgroundColor: Colors.white),
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: Colors.pink.withRed(9),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Container(
                             width: size.width * 0.7,
@@ -289,51 +305,34 @@ class _HomepageState extends State<Homepage> {
                                   bottomRight: Radius.circular(17)),
                               color: Colors.grey.withRed(9),
                             ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 4),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 9),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Name:'),
+                                  Text('Breed:'),
+                                  Row(
                                     children: [
-                                      Text(
-                                        'Name:${nam[index]}',
-                                      ),
-                                      Text(
-                                        'Breed:${name[index]}',
-                                        style: style1,
-                                      ),
                                       ElevatedButton.icon(
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color.fromARGB(
-                                                255, 247, 233, 233)),
+                                          backgroundColor:
+                                              Colors.grey.withRed(9),
+                                        ),
                                         onPressed: () {},
                                         icon: Icon(
-                                          Icons.person,
-                                          color: Colors.green,
-                                          size: 15,
+                                          Icons.place,
+                                          color: Colors.black,
                                         ),
-                                        label: Column(
-                                          children: [
-                                            Text('Owner'),
-                                          ],
+                                        label: Text(
+                                          'Loction',
+                                          style: style1,
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.03,
-                                ),
-                                IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.save_alt,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

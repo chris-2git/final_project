@@ -214,11 +214,13 @@ class _DetailpageState extends State<Detailpage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               IconButton(
+                                style: IconButton.styleFrom(
+                                    backgroundColor: Colors.white),
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.favorite_border_outlined,
                                   size: 30,
-                                  color: Colors.white,
+                                  color: Colors.pink.withRed(9),
                                 ),
                               ),
                               ElevatedButton.icon(

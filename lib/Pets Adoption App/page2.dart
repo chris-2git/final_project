@@ -1,7 +1,7 @@
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
 import 'package:final_project/Pets%20Adoption%20App/page4cate.dart';
-import 'package:final_project/Pets%20Adoption%20App/page5circle.dart';
-import 'package:final_project/Pets%20Adoption%20App/servicepage.dart';
+import 'package:final_project/Pets%20Adoption%20App/adoption.dart';
+import 'package:final_project/Pets%20Adoption%20App/profile.dart';
 import 'package:final_project/Pets%20Adoption%20App/favourtiepage.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class _Page2State extends State<Page2> {
     Homepage(),
     Categorypage(),
     Favouritepage(),
-    Serivepage(),
+    Profilepage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -107,7 +107,7 @@ class _Page2State extends State<Page2> {
       appBar: AppBar(
         toolbarHeight: 70,
         centerTitle: true,
-        backgroundColor: Colors.grey.withAlpha(5),
+        backgroundColor: Colors.grey.withRed(9),
         title: Text('Fetch & Find', style: style),
         actions: [
           GestureDetector(
@@ -115,7 +115,7 @@ class _Page2State extends State<Page2> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Circlepage(),
+                    builder: (context) => Adoptionpage(),
                   ));
             },
             child: Padding(
@@ -123,7 +123,7 @@ class _Page2State extends State<Page2> {
               child: CircleAvatar(
                 radius: 24,
                 backgroundColor: Colors.amber,
-                backgroundImage: AssetImage('assets/profile1.jpg'),
+                backgroundImage: AssetImage('assets/allpets.jpg'),
               ),
             ),
           ),
@@ -149,10 +149,8 @@ class _Page2State extends State<Page2> {
               label: 'Favourite',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.medical_services,
-              ),
-              label: 'Service',
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
           type: BottomNavigationBarType.fixed,
