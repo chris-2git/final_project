@@ -25,7 +25,6 @@ class _Page2State extends State<Page2> {
     'Calls',
     'Saved Pets',
     'Invite friends',
-    'Help ?',
     'Dark Glow',
     'settings'
   ];
@@ -34,7 +33,6 @@ class _Page2State extends State<Page2> {
     Icon(Icons.call),
     Icon(Icons.save_alt_rounded),
     Icon(Icons.inventory_2_rounded),
-    Icon(Icons.help_center_rounded),
     Icon(Icons.pause),
     Icon(Icons.settings)
   ];
@@ -66,6 +64,7 @@ class _Page2State extends State<Page2> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.grey.withRed(9)),
               accountName: Text(
                 'Leo John Varghese',
                 style: TextStyle(

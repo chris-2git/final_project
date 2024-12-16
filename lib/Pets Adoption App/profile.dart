@@ -1,3 +1,8 @@
+import 'package:final_project/Pets%20Adoption%20App/adoption.dart';
+import 'package:final_project/Pets%20Adoption%20App/editpage.dart';
+import 'package:final_project/Pets%20Adoption%20App/myorder.dart';
+import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
+import 'package:final_project/Pets%20Adoption%20App/settingspage.dart';
 import 'package:flutter/material.dart';
 
 class Profilepage extends StatefulWidget {
@@ -26,7 +31,7 @@ class _ProfilepageState extends State<Profilepage> {
         fontWeight: FontWeight.w200,
         fontStyle: FontStyle.normal);
     final style1 = TextStyle(color: Colors.white, fontSize: 15);
-    final style2 = TextStyle(color: Colors.black, fontSize: 18);
+    final style2 = TextStyle(color: Colors.white, fontSize: 18);
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -127,11 +132,17 @@ class _ProfilepageState extends State<Profilepage> {
                       IconButton(
                           style: IconButton.styleFrom(
                               backgroundColor: Colors.white),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Editpage(),
+                                ));
+                          },
                           icon: Icon(
                             Icons.edit,
                             color: Colors.black,
-                          ))
+                          )),
                     ],
                   ),
                 ),
@@ -142,17 +153,30 @@ class _ProfilepageState extends State<Profilepage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  ElevatedButton.icon(
+                  ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey.withRed(9)),
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.book,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      'Adoption',
-                      style: style1,
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Myorderpage(),
+                          ));
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.sort,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: size.width * 0.01,
+                        ),
+                        Text(
+                          'My Orders',
+                          style: style1,
+                        ),
+                      ],
                     ),
                   ),
                   ElevatedButton.icon(
@@ -179,13 +203,19 @@ class _ProfilepageState extends State<Profilepage> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey.withRed(9)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Settingspage(),
+                          ));
+                    },
                     icon: Icon(
-                      Icons.translate_outlined,
+                      Icons.settings,
                       color: Colors.white,
                     ),
                     label: Text(
-                      'language',
+                      'Setting',
                       style: style1,
                     ),
                   ),
@@ -198,11 +228,59 @@ class _ProfilepageState extends State<Profilepage> {
                       color: Colors.white,
                     ),
                     label: Text(
-                      'Reviews',
+                      'Review',
                       style: style1,
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: size.height * 0.03,
+              ),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey.withRed(9)),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text('Are you logouting'),
+                        actions: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Pagelogin(),
+                                  ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey.withRed(9),
+                            ),
+                            child: Text('yes'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.grey.withRed(9)),
+                            child: Text('No'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+                icon: Icon(
+                  Icons.logout_outlined,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  'Logout',
+                  style: style1,
+                ),
               ),
             ],
           ),
