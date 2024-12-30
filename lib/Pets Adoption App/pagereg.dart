@@ -1,6 +1,10 @@
-import 'package:final_project/Pets%20Adoption%20App/page2.dart';
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
 
 class Pageregister extends StatefulWidget {
   const Pageregister({super.key});
@@ -10,233 +14,263 @@ class Pageregister extends StatefulWidget {
 }
 
 class _PageregisterState extends State<Pageregister> {
+  TextEditingController firstnamecontroller = TextEditingController();
+  TextEditingController lastnamecontroller = TextEditingController();
+  TextEditingController dobcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController addresscontroller = TextEditingController();
+  TextEditingController gendercontroller = TextEditingController();
+  final formkey = GlobalKey<FormState>();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != DateTime.now()) {
+      String formattedDate = "${picked.year}-${picked.month}-${picked.day}";
+      dobcontroller.text = formattedDate;
+    }
+  }
+
+  Future<void> registerapi(
+      String firstname,
+      String lastname,
+      String dob,
+      String phone,
+      String email,
+      String password,
+      String address,
+      String gender) async {
+    const url =
+        'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/adopter_registration.php';
+
+    Map<String, String> body = {
+      'firstname': firstname,
+      'lastname': lastname,
+      'dob': dob,
+      'email': email,
+      'password': password,
+      'address': address,
+      'gender': gender
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: body,
+      );
+      print(url);
+      var jsonData = json.decode(response.body);
+      print(jsonData);
+      print(jsonData["status"]);
+      if (response.statusCode == 200) {
+        if (jsonData['status'] == true) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: const Text(
+                'Login Successful!',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Pagelogin()));
+          print(body);
+          print("Response body${response.body}");
+
+          print('Login successful');
+        } else if (jsonData['status'] == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: const Text(
+                'Invalid phone and password',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+          print('Error: ${response.statusCode}');
+        }
+      } else {
+        print('fffff');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Sty = TextStyle(
-        color: Colors.black,
-        fontStyle: FontStyle.italic,
-        fontSize: 16,
-        fontWeight: FontWeight.w900);
-    final Styl = TextStyle(
-        color: Colors.black,
-        fontStyle: FontStyle.normal,
-        fontSize: 16,
-        fontWeight: FontWeight.w500);
-    final Style = TextStyle(
-        color: Colors.white,
-        fontStyle: FontStyle.normal,
-        fontSize: 15,
-        fontWeight: FontWeight.w500);
-    final size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage('assets/petsall.webp'),
-          ),
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black.withOpacity(0.7),
-                          ),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Frist name',
-                        hintStyle: Sty,
-                        fillColor: Colors.grey.withOpacity(0.7),
-                        filled: true),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.black,
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black.withOpacity(0.9),
-                          ),
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        hintText: ' Last name',
-                        hintStyle: Sty,
-                        fillColor: Colors.grey.withOpacity(0.7),
-                        filled: true),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        fillColor: Colors.grey.withOpacity(0.7),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.black,
-                        ),
-                        hintText: 'Email',
-                        hintStyle: Sty),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.lock,
-                          color: Colors.black,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: Colors.black,
-                        ),
-                        fillColor: Colors.grey.withOpacity(0.7),
-                        filled: true,
-                        hintText: 'Password',
-                        hintStyle: Sty),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.black),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(18),
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.phone_android,
-                          color: Colors.black,
-                        ),
-                        fillColor: Colors.grey.withOpacity(0.7),
-                        filled: true,
-                        hintText: 'Phone No.',
-                        hintStyle: Sty),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.04,
-                ),
-                Container(
-                  width: size.width * 0.46,
-                  height: size.height * 0.08,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black.withOpacity(0.7),
+      backgroundColor: const Color.fromARGB(255, 239, 198, 185),
+      body: SingleChildScrollView(
+        child: Form(
+          key: formkey,
+          child: Container(
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      'assets/petsall.webp',
                     ),
-                    color: Colors.grey.withOpacity(0.8),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.elliptical(
-                        20,
-                        30,
-                      ),
-                      topRight: Radius.elliptical(20, 30),
-                      bottomLeft: Radius.elliptical(20, 30),
-                      bottomRight: Radius.elliptical(20, 30),
-                    ),
+                    fit: BoxFit.cover)),
+            child: Padding(
+              padding: const EdgeInsets.all(28.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Create Your Account',
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 183, 157, 146),
+                        fontSize: 27,
+                        fontWeight: FontWeight.bold),
                   ),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Page2(),
-                          ));
-                    },
-                    child: Text(
-                      'Register',
-                      style: Styl,
-                    ),
+                  SizedBox(
+                    height: 25,
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.1,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Already have an account?',
-                      style: Style,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Pagelogin(),
-                          ),
+                  Sampletextform('Firstname', Icons.person, firstnamecontroller,
+                      (value) {
+                    if (firstnamecontroller.text.isEmpty) {
+                      return 'Please enter your firstname';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('Lastname', Icons.person, lastnamecontroller,
+                      (value) {
+                    if (lastnamecontroller.text.isEmpty) {
+                      return 'Please enter your lastname';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('DOB', Icons.calendar_month, dobcontroller,
+                      (value) {
+                    if (dobcontroller.text.isEmpty) {
+                      return 'Please enter your dob';
+                    } else {
+                      return null;
+                    }
+                  }, () {
+                    _selectDate(context);
+                  }),
+                  Sampletextform('Phone', Icons.phone, phonecontroller,
+                      (value) {
+                    if (phonecontroller.text.isEmpty) {
+                      return 'Please enter your phone';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('Email', Icons.email, emailcontroller,
+                      (value) {
+                    if (emailcontroller.text.isEmpty) {
+                      return 'Please enter your email';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('Password', Icons.lock, passwordcontroller,
+                      (value) {
+                    if (passwordcontroller.text.isEmpty) {
+                      return 'Please enter your firstname';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('Address', Icons.place, addresscontroller,
+                      (value) {
+                    if (addresscontroller.text.isEmpty) {
+                      return 'Please enter your address';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  Sampletextform('Gender', Icons.male, gendercontroller,
+                      (value) {
+                    if (gendercontroller.text.isEmpty) {
+                      return 'Please enter your gender';
+                    } else {
+                      return null;
+                    }
+                  }, () {}),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (formkey.currentState!.validate()) {
+                        registerapi(
+                          firstnamecontroller.text.toString(),
+                          lastnamecontroller.text.toString(),
+                          dobcontroller.text.toString(),
+                          phonecontroller.text.toString(),
+                          emailcontroller.text.toString(),
+                          passwordcontroller.text.toString(),
+                          addresscontroller.text.toString(),
+                          gendercontroller.text.toString(),
                         );
-                      },
-                      child: Text(
-                        'Login',
-                        style: Style,
+                      }
+                    },
+                    child: Container(
+                      height: 60,
+                      width: 250,
+                      decoration: BoxDecoration(
+                        color: Colors.brown.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(30),
                       ),
+                      child: Center(
+                          child: Text(
+                        'Register',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      )),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget Sampletextform(
+      String name,
+      IconData icon,
+      TextEditingController samplecontroller,
+      String? Function(String?)? validator,
+      Function() onTap) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: TextFormField(
+          controller: samplecontroller,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            hintText: name,
+            hintStyle: TextStyle(fontSize: 14),
+            prefixIcon: GestureDetector(onTap: onTap, child: Icon(icon)),
+            fillColor: Colors.white.withOpacity(0.5),
+            filled: true,
+          ),
+          validator: validator),
     );
   }
 }

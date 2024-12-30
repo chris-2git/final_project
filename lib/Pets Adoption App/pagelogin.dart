@@ -1,7 +1,7 @@
+import 'dart:convert';
 import 'package:final_project/Pets%20Adoption%20App/page2.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagereg.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
 
 class Pagelogin extends StatefulWidget {
@@ -12,67 +12,80 @@ class Pagelogin extends StatefulWidget {
 }
 
 class _PageloginState extends State<Pagelogin> {
-  // final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  // TextEditingController emailcontroller = TextEditingController();
-  // TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
-  // Future<void> loginpage(String email, String password) async {
-  //   const Uri =
-  //       ('http://campus.sicsglobal.co.in/Project/homemade_crafts/API/login.php');
-  //   Map<String, String> body = {
-  //     'email': email,
-  //     'password': password,
-  //   };
+  Future<void> loginpage(String email, String password) async {
+    const url =
+        'http://campus.sicsglobal.co.in/Project/PetAdoption/api/login.php';
+    Map<String, String> body = {
+      'email': email,
+      'password': password,
+    };
 
-  //   try {
-  //     final response = await http.post(
-  //       Uri.parse(url),
-  //       body: body,
-  //     );
-  //     print(url);
-  //     var jsonData = json.decode(response.body);
-  //     print(jsonData);
-  //     print(jsonData["status"]);
-  //     if (response.statusCode == 200) {
-  //       if (jsonData['status'] == true) {
-  //         ScaffoldMessenger.of(
-  //           context.showSnackBar(SnackBar(
-  //             backgroundColor: Colors.green,
-  //             content: const Text(
-  //               'Login Successfully!',
-  //               style:
-  //                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-  //             ),
-  //             duration: const Duration(seconds: 4),
-  //           )),
-  //         );
-  //         Navigator.push(context,
-  //             MaterialPageRoute(builder: (context) => const Pagelogin()));
-  //         print(body);
-  //         print("Response body${response.body}");
-  //         print("Response body${response.body}");
-  //       } else if (jsonData['status'] == false) {
-  //         ScaffoldMessenger.of(context).showSnackBar(
-  //           SnackBar(
-  //             backgroundColor: Colors.amber,
-  //             content: const Text(
-  //               'Invalid phone and password',
-  //               style:
-  //                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-  //             ),
-  //             duration: const Duration(seconds: 4),
-  //           ),
-  //         );
-  //         print('Error: ${response.statusCode}');
-  //       }
-  //     } else {
-  //       print('fffff');
-  //     }
-  //   } catch (error) {
-  //     print('Error: $error');
-  //   }
-  // }
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: body,
+      );
+      var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        if (jsonData['status'] == true) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Page2()));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: const Text(
+                'Login successful',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        } else if (jsonData['status'] == false) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.amber,
+              content: const Text(
+                'Invalid email and password',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.red,
+            content: const Text(
+              'Server error. Please try again later.',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    } catch (error) {
+      print('Error: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: const Text(
+            'An error occurred. Please try again.',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          duration: const Duration(seconds: 4),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +101,11 @@ class _PageloginState extends State<Pagelogin> {
       fontStyle: FontStyle.normal,
     );
     final Style = TextStyle(
-        color: Colors.white,
-        fontStyle: FontStyle.normal,
-        fontSize: 15,
-        fontWeight: FontWeight.w800);
+      color: Colors.white,
+      fontStyle: FontStyle.normal,
+      fontSize: 15,
+      fontWeight: FontWeight.w800,
+    );
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -103,113 +117,135 @@ class _PageloginState extends State<Pagelogin> {
         ),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('login'),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.withOpacity(0.3),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          18,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Login',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        }
+                        return null;
+                      },
+                      controller: emailcontroller,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.withOpacity(0.3),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
                         ),
-                      ),
-                      hintText: 'Email',
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: Colors.black,
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.withOpacity(0.3),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          18,
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                      controller: passwordcontroller,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.withOpacity(0.3),
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        hintText: 'Password',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.black,
+                        ),
+                        suffixIcon: Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Colors.black,
                         ),
                       ),
-                      hintText: 'Password',
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.black,
-                      ),
-                      suffixIcon: Icon(
-                        Icons.remove_red_eye_outlined,
-                        color: Colors.black,
-                      ),
+                      obscureText: true,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.04,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Page2()));
-                  },
-                  child: Container(
-                    width: size.width * 0.300,
-                    height: size.height * 0.09,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black.withOpacity(0.5),
+                  SizedBox(
+                    height: size.height * 0.04,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        loginpage(
+                          emailcontroller.text.toString(),
+                          passwordcontroller.text.toString(),
+                        );
+                      }
+                    },
+                    child: Container(
+                      width: size.width * 0.3,
+                      height: size.height * 0.09,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black.withOpacity(0.5),
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey.withOpacity(0.4),
                       ),
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey.withOpacity(0.4),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Login',
-                        style: TextStyle(
+                      child: Center(
+                        child: Text(
+                          'Login',
+                          style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w900,
-                            fontSize: 17),
+                            fontSize: 17,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: size.height * 0.15,
-                ),
-                Text(
-                  'Don' 't have an account?',
-                  style: Style,
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
+                  SizedBox(
+                    height: size.height * 0.15,
+                  ),
+                  Text(
+                    'Don\'t have an account?',
+                    style: Style,
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Pageregister(),
-                        ));
-                  },
-                  child: Text(
-                    'Register here',
-                    style: styl,
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Register here',
+                      style: styl,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
