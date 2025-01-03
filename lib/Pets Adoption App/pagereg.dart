@@ -67,7 +67,9 @@ class _PageregisterState extends State<Pageregister> {
       print(url);
       var jsonData = json.decode(response.body);
       print(jsonData);
-      print(jsonData["status"]);
+      print(
+        jsonData["status"],
+      );
       if (response.statusCode == 200) {
         if (jsonData['status'] == true) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -227,17 +229,20 @@ class _PageregisterState extends State<Pageregister> {
                       height: 60,
                       width: 250,
                       decoration: BoxDecoration(
-                        color: Colors.brown.withOpacity(0.8),
+                        color: const Color.fromARGB(255, 140, 93, 76)
+                            .withOpacity(0.8),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(
-                          child: Text(
-                        'Register',
-                        style: TextStyle(
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      )),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

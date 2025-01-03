@@ -121,7 +121,7 @@ class _PrivacypageState extends State<Privacypage> {
                 height: size.height * 0.05,
               ),
               Text(
-                  'This Privacy Policy is governed by the laws of your Jurisdiction')
+                  'This Privacy Policy is governed by the laws of your Jurisdiction'),
             ],
           ),
         ),
