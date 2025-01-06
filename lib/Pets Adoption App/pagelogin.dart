@@ -12,6 +12,13 @@ class Pagelogin extends StatefulWidget {
 }
 
 class _PageloginState extends State<Pagelogin> {
+  bool _isObscure = true;
+  void _toggleVisibility() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController emailcontroller = TextEditingController();
@@ -178,12 +185,16 @@ class _PageloginState extends State<Pagelogin> {
                           Icons.lock,
                           color: Colors.black,
                         ),
-                        suffixIcon: Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: Colors.black,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: _toggleVisibility,
                         ),
                       ),
-                      obscureText: true,
+                      obscureText: _isObscure,
                     ),
                   ),
                   SizedBox(

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:final_project/Pets%20Adoption%20App/apimodel.dart';
+import 'package:final_project/Pets%20Adoption%20App/apimodelHome.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 
@@ -33,15 +33,17 @@ class PetsProvider with ChangeNotifier {
     return [..._pet];
   }
 
-  Future CategoriesData({required BuildContext context}) async {
+  Future allCategoriesData({required BuildContext context}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
-        Uri.parse("https://www.themealdb.com/api/json/v1/1/categories.php"),
+        Uri.parse(
+            "http://campus.sicsglobal.co.in/Project/PetAdoption/api/viewallpets.php"),
       );
 
-      print("https://www.themealdb.com/api/json/v1/1/categories.php");
+      print(
+          "http://campus.sicsglobal.co.in/Project/PetAdoption/api/viewallpets.php");
 
       print(response.body);
 
@@ -50,7 +52,7 @@ class PetsProvider with ChangeNotifier {
         _pet = [];
         var extractedData = json.decode(response.body);
 
-        final List<dynamic> Category = extractedData["categories"];
+        final List<dynamic> Category = extractedData["petDetails"];
         for (var i = 0; i < Category.length; i++) {
           _pet.add(
             PetDetails(

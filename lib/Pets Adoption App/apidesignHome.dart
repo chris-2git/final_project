@@ -1,11 +1,10 @@
-import 'package:final_project/Pets%20Adoption%20App/api.dart';
-import 'package:final_project/Pets%20Adoption%20App/apiwidget.dart';
+import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
+import 'package:final_project/Pets%20Adoption%20App/apiwidgetHome.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 class Petsdesgin extends StatefulWidget {
-  static const routename = "Pet details";
   const Petsdesgin({
     super.key,
   });
@@ -15,12 +14,9 @@ class Petsdesgin extends StatefulWidget {
 }
 
 class _PetsScreenState extends State<Petsdesgin> {
-  @override
   void initState() {
     Provider.of<PetsProvider>(context, listen: false)
-        .CategoriesData(context: context);
-
-    super.initState();
+        .allCategoriesData(context: context);
   }
 
   @override
@@ -52,7 +48,7 @@ class _PetsScreenState extends State<Petsdesgin> {
                         mainAxisSpacing: 15,
                         childAspectRatio: 0.6),
                     itemBuilder: (context, index) {
-                      return Petwidget(
+                      return PetWidget(
                         petid: pet.pets[index].petid,
                         name: pet.pets[index].name,
                         species: pet.pets[index].species,

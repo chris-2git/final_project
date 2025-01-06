@@ -1,8 +1,9 @@
+import 'package:final_project/Pets%20Adoption%20App/categoryDesign.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
-import 'package:final_project/Pets%20Adoption%20App/page4cate.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoption.dart';
 import 'package:final_project/Pets%20Adoption%20App/profile.dart';
-import 'package:final_project/Pets%20Adoption%20App/favourtiepage.dart';
+
 import 'package:flutter/material.dart';
 
 class Page2 extends StatefulWidget {
@@ -38,8 +39,8 @@ class _Page2State extends State<Page2> {
   ];
   List<Widget> _petsOptions = <Widget>[
     Homepage(),
-    Categorypage(),
-    Favouritepage(),
+    CategoryDesgin(),
+    FavouriteDesgin(),
     Profilepage(),
   ];
   @override

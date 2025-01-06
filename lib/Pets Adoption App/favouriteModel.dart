@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
-class Petwidget extends StatefulWidget {
+class Favmodel {
+  final String favId;
   final String petid;
   final String name;
   final String species;
@@ -17,11 +16,10 @@ class Petwidget extends StatefulWidget {
   final String status;
   final String notes;
   final String addeddate;
-
   final String photo;
 
-  const Petwidget(
-      {super.key,
+  Favmodel(
+      {required this.favId,
       required this.petid,
       required this.name,
       required this.species,
@@ -40,13 +38,26 @@ class Petwidget extends StatefulWidget {
       required this.addeddate,
       required this.photo});
 
-  @override
-  State<Petwidget> createState() => _PetwidgetState();
-}
-
-class _PetwidgetState extends State<Petwidget> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+  factory Favmodel.fromJson(Map<String, dynamic> json) {
+    return Favmodel(
+      favId: json['fav_id'],
+      petid: json['petid'],
+      name: json['name'],
+      species: json['species'],
+      breed: json['breed'],
+      age: json['age'],
+      sex: json['sex'],
+      color: json['color'],
+      weight: json['weight'],
+      dob: json['dob'],
+      microchipid: json['microchipid'],
+      aid: json['aid'],
+      diet: json['diet'],
+      behaviour: json['behaviour'],
+      status: json['status'],
+      notes: json['notes'],
+      addeddate: json['addeddate'],
+      photo: json['photo'],
+    );
   }
 }

@@ -14,6 +14,13 @@ class Pageregister extends StatefulWidget {
 }
 
 class _PageregisterState extends State<Pageregister> {
+  bool _isObscure = true;
+  void _passlock() {
+    setState(() {
+      _isObscure = !_isObscure;
+    });
+  }
+
   TextEditingController firstnamecontroller = TextEditingController();
   TextEditingController lastnamecontroller = TextEditingController();
   TextEditingController dobcontroller = TextEditingController();
@@ -183,14 +190,39 @@ class _PageregisterState extends State<Pageregister> {
                       return null;
                     }
                   }, () {}),
-                  Sampletextform('Password', Icons.lock, passwordcontroller,
-                      (value) {
-                    if (passwordcontroller.text.isEmpty) {
-                      return 'Please enter your firstname';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                      controller: passwordcontroller,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        hintText: 'Password',
+                        prefixIcon: Icon(
+                          Icons.lock,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isObscure
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: _passlock,
+                        ),
+                        fillColor: Colors.white.withOpacity(0.5),
+                        filled: true,
+                      ),
+                      obscureText: _isObscure,
+                    ),
+                  ),
                   Sampletextform('Address', Icons.place, addresscontroller,
                       (value) {
                     if (addresscontroller.text.isEmpty) {
