@@ -7,6 +7,8 @@ import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 
 import 'package:final_project/Pets%20Adoption%20App/page1.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
+import 'package:final_project/Pets%20Adoption%20App/sepratedApi.dart';
+import 'package:final_project/Pets%20Adoption%20App/sepratedDesign.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +32,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FavPetsProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SepratedPetsProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -39,6 +44,9 @@ class MyApp extends StatelessWidget {
           "Petdetails": (context) => Homepage(),
           'pets': (context) => CategoryDesgin(),
           'favpets': (context) => FavouriteDesgin(),
+          'Seprated': (context) => SepratedDesgin(
+                categoryid: 'category_id',
+              ),
         },
       ),
     );

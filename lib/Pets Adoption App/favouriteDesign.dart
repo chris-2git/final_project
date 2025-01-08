@@ -43,7 +43,7 @@ class _FavouriteDesginScreenState extends State<FavouriteDesgin> {
               ],
             )
           : pet.pets.isEmpty
-              ? Text('No Famers...')
+              ? Text('Loading...')
               : SizedBox(
                   height: size.height * 0.9,
                   child: GridView.builder(

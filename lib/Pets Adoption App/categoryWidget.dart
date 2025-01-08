@@ -1,4 +1,5 @@
-import 'package:final_project/Pets%20Adoption%20App/sepratedpage.dart';
+import 'package:final_project/Pets%20Adoption%20App/sepratedDesign.dart';
+
 import 'package:flutter/material.dart';
 
 class Categorywidget extends StatefulWidget {
@@ -35,7 +36,9 @@ class _CategorywidgetState extends State<Categorywidget> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Sepratedpage(),
+                    builder: (context) => SepratedDesgin(
+                      categoryid: widget.id,
+                    ),
                   ));
             },
             child: Container(

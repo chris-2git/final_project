@@ -2,10 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:final_project/Pets%20Adoption%20App/apimodelHome.dart';
+import 'package:final_project/Pets%20Adoption%20App/categoryModel.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteModel.dart';
+import 'package:final_project/Pets%20Adoption%20App/sepratedModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 
-class PetsProvider with ChangeNotifier {
+class SepratedPetsProvider with ChangeNotifier {
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -28,22 +31,23 @@ class PetsProvider with ChangeNotifier {
     return _isError;
   }
 
-  List<PetDetails> _pet = [];
-  List<PetDetails> get pets {
+  List<SepratedModel> _pet = [];
+  List<SepratedModel> get pets {
     return [..._pet];
   }
 
-  Future allCategoriesData({required BuildContext context}) async {
+  Future SepData(
+      {required BuildContext context, required String categoryid}) async {
     try {
       _isLoading = true;
 
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/viewallpets.php"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_pets_category.php?category_id=$categoryid"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/viewallpets.php");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_pets_category.php?category_id=$categoryid");
 
       print(response.body);
 
@@ -55,7 +59,7 @@ class PetsProvider with ChangeNotifier {
         final List<dynamic> Category = extractedData["petDetails"];
         for (var i = 0; i < Category.length; i++) {
           _pet.add(
-            PetDetails(
+            SepratedModel(
               petid: Category[i]['petid'].toString(),
               name: Category[i]['name'].toString(),
               species: Category[i]['species'].toString(),

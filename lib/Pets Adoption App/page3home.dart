@@ -22,82 +22,6 @@ class _HomepageState extends State<Homepage> {
     super.initState();
   }
 
-  List<String> img = [
-    'assets/dogs.png',
-    'assets/cats.png',
-    'assets/dogs.png',
-    'assets/cats.png',
-    'assets/dogs.png',
-    'assets/cats.png',
-    'assets/dogs.png',
-    'assets/cats.png',
-  ];
-  List<String> na = [
-    'Dogs',
-    'Cats',
-    'Birds',
-    'Fishes',
-    'Hens',
-    'Ducks',
-    'Rabbits',
-    'Others',
-  ];
-  List<String> imge = [
-    'assets/dogs1.jpg',
-    'assets/cats1.jpg',
-    'assets/dogs2.jpg',
-    'assets/cats2.jpg',
-    'assets/dogs3.jpg',
-    'assets/cats3.jpg',
-    'assets/dogs4.jpg',
-    'assets/cats4.jpg',
-    'assets/dogs5.jpg',
-    'assets/cats5.jpg',
-    'assets/dogs6.jpg',
-    'assets/cats6.jpg',
-    'assets/dogs7.jpg',
-    'assets/cats7.jpg',
-    'assets/dogs8.jpg',
-    'assets/cats8.jpg',
-    'assets/dogs9.jpg',
-    'assets/cats9.jpg',
-  ];
-  List<String> nam = [
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-  ];
-  List<String> name = [
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-    'Dogs',
-    'Cats',
-  ];
   @override
   Widget build(BuildContext context) {
     final pet = Provider.of<PetsProvider>(context);
@@ -227,7 +151,6 @@ class _HomepageState extends State<Homepage> {
               Container(
                 height: size.height * 0.15,
                 child: ListView.builder(
-                  itemCount: img.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return Padding(
@@ -238,11 +161,11 @@ class _HomepageState extends State<Homepage> {
                             backgroundColor: Colors.grey.withRed(9),
                             radius: 34,
                             backgroundImage: AssetImage(
-                              img[index],
+                              '',
                             ),
                           ),
                           Text(
-                            na[index],
+                            '',
                             style: style1,
                           )
                         ],
@@ -271,7 +194,7 @@ class _HomepageState extends State<Homepage> {
                       ],
                     )
                   : pet.pets.isEmpty
-                      ? Text('No Famers...')
+                      ? Text('Loading...')
                       : SizedBox(
                           height: size.height * 0.9,
                           child: GridView.builder(
@@ -281,7 +204,7 @@ class _HomepageState extends State<Homepage> {
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 15,
                                     mainAxisSpacing: 15,
-                                    childAspectRatio: 0.6),
+                                    childAspectRatio: 0.7),
                             itemBuilder: (context, index) {
                               return PetWidget(
                                 petid: pet.pets[index].petid,

@@ -60,14 +60,26 @@ class _PetWidgetState extends State<PetWidget> {
           height: 150,
           width: 150,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(
+                20,
+              ),
+            ),
             image: DecorationImage(
                 image: NetworkImage(widget.photo), fit: BoxFit.cover),
           ),
         ),
         Container(
-          height: 150,
+          height: 50,
           width: 150,
-          color: Colors.grey,
+          decoration: BoxDecoration(
+            color: Colors.grey.withRed(9),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
+          ),
           child: Column(
             children: [Text(widget.name), Text(widget.breed)],
           ),

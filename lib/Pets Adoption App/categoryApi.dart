@@ -40,11 +40,11 @@ class CategoryPetsProvider with ChangeNotifier {
 
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_categories.php"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_categories.php"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/pet_shop/api/view_categories.php");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_categories.php");
 
       print(response.body);
 

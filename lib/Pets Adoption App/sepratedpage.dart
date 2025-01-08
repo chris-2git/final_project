@@ -9,17 +9,6 @@ class Sepratedpage extends StatefulWidget {
 }
 
 class _SepratedpageState extends State<Sepratedpage> {
-  List<String> img = [
-    'assets/dogs1.jpg',
-    'assets/dogs2.jpg',
-    'assets/dogs3.jpg',
-    'assets/dogs4.jpg',
-    'assets/dogs5.jpg',
-    'assets/dogs6.jpg',
-    'assets/dogs7.jpg',
-    'assets/dogs8.jpg',
-    'assets/dogs9.jpg',
-  ];
   @override
   Widget build(BuildContext context) {
     final sty = TextStyle(
@@ -41,7 +30,6 @@ class _SepratedpageState extends State<Sepratedpage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
-          itemCount: img.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisSpacing: 10,
@@ -65,9 +53,7 @@ class _SepratedpageState extends State<Sepratedpage> {
                       ),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          img[index],
-                        ),
+                        image: AssetImage(''),
                       ),
                     ),
                     child: Column(
