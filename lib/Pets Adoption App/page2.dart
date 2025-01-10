@@ -1,7 +1,8 @@
+import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
-import 'package:final_project/Pets%20Adoption%20App/adoption.dart';
+
 import 'package:final_project/Pets%20Adoption%20App/profile.dart';
 
 import 'package:flutter/material.dart';
@@ -115,7 +116,7 @@ class _Page2State extends State<Page2> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Adoptionpage(),
+                    builder: (context) => Adoptdesign(),
                   ));
             },
             child: Padding(

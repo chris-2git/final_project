@@ -38,8 +38,12 @@ class _SepratedpageState extends State<Sepratedpage> {
           itemBuilder: (context, index) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Detailpage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Detailpage(
+                              id: 'detailscreen',
+                            )));
               },
               child: Column(
                 children: [

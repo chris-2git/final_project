@@ -1,7 +1,10 @@
+import 'package:final_project/Pets%20Adoption%20App/adoptionAPI.dart';
+import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/apidesignHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryDesign.dart';
+import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 
@@ -36,6 +39,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SepratedPetsProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => AdoptProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -44,9 +50,16 @@ class MyApp extends StatelessWidget {
           "Petdetails": (context) => Homepage(),
           'pets': (context) => CategoryDesgin(),
           'favpets': (context) => FavouriteDesgin(),
+          'adopt': (context) => Adoptdesign(),
           'Seprated': (context) => SepratedDesgin(
                 categoryid: 'category_id',
               ),
+          'detailscreen': (context) {
+            String id = ModalRoute.of(context)!.settings.arguments.toString();
+            return Detailpage(
+              id: id,
+            );
+          },
         },
       ),
     );

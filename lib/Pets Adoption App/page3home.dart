@@ -1,6 +1,8 @@
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/apidesignHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiwidgetHome.dart';
+import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
+import 'package:final_project/Pets%20Adoption%20App/criclewidget.dart';
 import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,8 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     final pet = Provider.of<PetsProvider>(context);
+    final category = Provider.of<CategoryPetsProvider>(context);
+
     final size = MediaQuery.of(context).size;
     final sty = TextStyle(
       color: Colors.black,
@@ -151,25 +155,13 @@ class _HomepageState extends State<Homepage> {
               Container(
                 height: size.height * 0.15,
                 child: ListView.builder(
+                  itemCount: category.pets.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.grey.withRed(9),
-                            radius: 34,
-                            backgroundImage: AssetImage(
-                              '',
-                            ),
-                          ),
-                          Text(
-                            '',
-                            style: style1,
-                          )
-                        ],
-                      ),
+                    return Criclewid(
+                      id: category.pets[index].id,
+                      name: category.pets[index].name,
+                      photo: category.pets[index].photo,
                     );
                   },
                 ),
@@ -228,103 +220,6 @@ class _HomepageState extends State<Homepage> {
                             },
                           ),
                         ),
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //         builder: (context) => Detailpage(),
-              //       ),
-              //     );
-              //   },
-              //   child: Container(
-              //     height: size.height * 100,
-              //     child: GridView.builder(
-              //       itemCount: imge.length,
-              //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //           crossAxisCount: 2,
-              //           childAspectRatio: 0.7,
-              //           mainAxisSpacing: 14,
-              //           crossAxisSpacing: 10),
-              //       itemBuilder: (context, index) {
-              //         return Column(
-              //           children: [
-              //             Container(
-              //               width: size.width * 0.7,
-              //               height: size.height * 0.20,
-              //               decoration: BoxDecoration(
-              //                 borderRadius: BorderRadius.only(
-              //                     topLeft: Radius.circular(17),
-              //                     topRight: Radius.circular(17)),
-              //                 image: DecorationImage(
-              //                   image: AssetImage(
-              //                     imge[index],
-              //                   ),
-              //                   scale: 6,
-              //                   fit: BoxFit.cover,
-              //                 ),
-              //               ),
-              //               child: Column(
-              //                 mainAxisAlignment: MainAxisAlignment.end,
-              //                 crossAxisAlignment: CrossAxisAlignment.end,
-              //                 children: [
-              //                   IconButton(
-              //                     style: IconButton.styleFrom(
-              //                         backgroundColor: Colors.white),
-              //                     onPressed: () {},
-              //                     icon: Icon(
-              //                       Icons.favorite_border_outlined,
-              //                       color: Colors.pink.withRed(9),
-              //                     ),
-              //                   ),
-              //                 ],
-              //               ),
-              //             ),
-              //             Container(
-              //               width: size.width * 0.7,
-              //               height: size.height * 0.15,
-              //               decoration: BoxDecoration(
-              //                 borderRadius: BorderRadius.only(
-              //                     bottomLeft: Radius.circular(17),
-              //                     bottomRight: Radius.circular(17)),
-              //                 color: Colors.grey.withRed(9),
-              //               ),
-              //               child: Padding(
-              //                 padding: const EdgeInsets.only(left: 9),
-              //                 child: Column(
-              //                   crossAxisAlignment: CrossAxisAlignment.start,
-              //                   children: [
-              //                     Text('Name:'),
-              //                     Text('Breed:'),
-              //                     Row(
-              //                       children: [
-              //                         ElevatedButton.icon(
-              //                           style: ElevatedButton.styleFrom(
-              //                             backgroundColor:
-              //                                 Colors.grey.withRed(9),
-              //                           ),
-              //                           onPressed: () {},
-              //                           icon: Icon(
-              //                             Icons.place,
-              //                             color: Colors.black,
-              //                           ),
-              //                           label: Text(
-              //                             'Loction',
-              //                             style: style1,
-              //                           ),
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ],
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

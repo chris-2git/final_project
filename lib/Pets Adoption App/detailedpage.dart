@@ -1,7 +1,15 @@
+import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
+import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Detailpage extends StatefulWidget {
-  const Detailpage({super.key});
+  static const routname = 'detailscreen';
+  final String id;
+  const Detailpage({
+    super.key,
+    required this.id,
+  });
 
   @override
   State<Detailpage> createState() => _DetailpageState();
@@ -10,6 +18,9 @@ class Detailpage extends StatefulWidget {
 class _DetailpageState extends State<Detailpage> {
   @override
   Widget build(BuildContext context) {
+    final detaildata = Provider.of<PetsProvider>(context)
+        .pets
+        .firstWhere((element) => element.petid == widget.id);
     final st = TextStyle(
         color: Colors.black, fontSize: 25, fontWeight: FontWeight.w500);
     final styl = TextStyle(
@@ -44,7 +55,7 @@ class _DetailpageState extends State<Detailpage> {
               height: size.height * 0.350,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/dogs.png'),
+                  image: NetworkImage(detaildata.photo),
                 ),
               ),
             ),
@@ -69,14 +80,14 @@ class _DetailpageState extends State<Detailpage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Pug Dog',
+                            detaildata.name,
                             style: st,
                           ),
                           Text(
-                            'Breed:',
+                            detaildata.breed,
                             style: styl,
                           ),
-                          Text('rating bar'),
+                          Text(detaildata.species),
                         ],
                       ),
                       Text(
@@ -106,11 +117,11 @@ class _DetailpageState extends State<Detailpage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                'Gender',
+                                detaildata.sex,
                                 style: style2,
                               ),
                               Text(
-                                'Male',
+                                'Sex',
                               ),
                             ],
                           ),
@@ -133,13 +144,39 @@ class _DetailpageState extends State<Detailpage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
+                              Text(
+                                detaildata.age,
+                                style: style2,
+                              ),
                               Text(
                                 'Age',
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.03,
+                        ),
+                        Container(
+                          width: size.width * 0.25,
+                          height: size.height * 0.10,
+                          decoration: BoxDecoration(
+                            color: Colors.white70,
+                            borderRadius: BorderRadius.circular(
+                              19,
+                            ),
+                            border: Border.all(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                detaildata.dob,
                                 style: style2,
                               ),
-                              Text(
-                                '4',
-                              ),
+                              Text('DOB'),
                             ],
                           ),
                         ),
@@ -162,32 +199,10 @@ class _DetailpageState extends State<Detailpage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                'Height',
+                                detaildata.color,
                                 style: style2,
                               ),
-                              Text('4cm'),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
-                        Container(
-                          width: size.width * 0.20,
-                          height: size.height * 0.10,
-                          decoration: BoxDecoration(
-                            color: Colors.white70,
-                            borderRadius: BorderRadius.circular(
-                              19,
-                            ),
-                            border: Border.all(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(''),
-                              Text('4'),
+                              Text('Colour'),
                             ],
                           ),
                         ),
@@ -203,8 +218,9 @@ class _DetailpageState extends State<Detailpage> {
                           'Description:',
                           style: style,
                         ),
-                        Text(
-                            'Dogs are wonderful creatures and have earned the title of "man for good reasons. They are domesticated mammals, closely related to wolves, and have been part of human society for thousands of years.Here are a few interesting points about dogs'),
+                        Text(detaildata.behaviour),
+                        Text(detaildata.notes),
+                        Text(detaildata.diet),
                         SizedBox(
                           height: size.height * 0.03,
                         ),
@@ -223,19 +239,29 @@ class _DetailpageState extends State<Detailpage> {
                                   color: Colors.pink.withRed(9),
                                 ),
                               ),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                    shadowColor: Colors.black,
-                                    backgroundColor: Colors.indigo),
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.pets,
-                                  size: 30,
-                                  color: Colors.white,
-                                ),
-                                label: Text(
-                                  'adopt',
-                                  style: style1,
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Adoptdesign(),
+                                      ));
+                                },
+                                child: ElevatedButton.icon(
+                                  style: ElevatedButton.styleFrom(
+                                      shadowColor: Colors.black,
+                                      backgroundColor: const Color.fromARGB(
+                                          255, 100, 134, 162)),
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.pets,
+                                    size: 30,
+                                    color: Colors.white,
+                                  ),
+                                  label: Text(
+                                    'adopt',
+                                    style: style1,
+                                  ),
                                 ),
                               ),
                             ],

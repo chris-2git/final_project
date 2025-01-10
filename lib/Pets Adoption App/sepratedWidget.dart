@@ -60,7 +60,7 @@ class _SepratedWidState extends State<SepratedWid> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => Detailpage(),
+              builder: (context) => Detailpage(id: widget.petid),
             ));
       },
       child: Column(

@@ -1,3 +1,4 @@
+import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
 import 'package:flutter/material.dart';
 
 class PetWidget extends StatefulWidget {
@@ -56,18 +57,26 @@ class _PetWidgetState extends State<PetWidget> {
 
     return Column(
       children: [
-        Container(
-          height: 150,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(
-                20,
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Detailpage(id: widget.petid)));
+          },
+          child: Container(
+            height: 150,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(
+                  20,
+                ),
               ),
+              image: DecorationImage(
+                  image: NetworkImage(widget.photo), fit: BoxFit.cover),
             ),
-            image: DecorationImage(
-                image: NetworkImage(widget.photo), fit: BoxFit.cover),
           ),
         ),
         Container(
