@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:final_project/Pets%20Adoption%20App/apimodelHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/categoryModel.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;

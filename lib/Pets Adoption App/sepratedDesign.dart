@@ -1,9 +1,3 @@
-import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/apiwidgetHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
-import 'package:final_project/Pets%20Adoption%20App/categoryWidget.dart';
-import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
-import 'package:final_project/Pets%20Adoption%20App/favouriteWidget.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedWidget.dart';
 import 'package:flutter/material.dart';

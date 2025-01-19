@@ -214,72 +214,59 @@ class _ProfilepageState extends State<Profilepage> {
                       color: Colors.white,
                     ),
                     label: Text(
-                      'Setting',
+                      'Settings',
                       style: style1,
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey.withRed(9)),
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text('Are you logouting'),
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Pagelogin(),
+                                      ));
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.grey.withRed(9),
+                                ),
+                                child: Text('yes'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.grey.withRed(9)),
+                                child: Text('No'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                     icon: Icon(
-                      Icons.reviews,
+                      Icons.logout_outlined,
                       color: Colors.white,
                     ),
                     label: Text(
-                      'Review',
+                      'Logout',
                       style: style1,
                     ),
                   ),
                 ],
-              ),
-              SizedBox(
-                height: size.height * 0.03,
-              ),
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey.withRed(9)),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text('Are you logouting'),
-                        actions: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Pagelogin(),
-                                  ));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.grey.withRed(9),
-                            ),
-                            child: Text('yes'),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.grey.withRed(9)),
-                            child: Text('No'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
-                icon: Icon(
-                  Icons.logout_outlined,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Logout',
-                  style: style1,
-                ),
               ),
             ],
           ),

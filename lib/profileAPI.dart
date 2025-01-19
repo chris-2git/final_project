@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:final_project/Pets%20Adoption%20App/categoryModel.dart';
+import 'package:final_project/profileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 
-class CategoryPetsProvider with ChangeNotifier {
+class ProfilePetsProvider with ChangeNotifier {
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -28,22 +28,22 @@ class CategoryPetsProvider with ChangeNotifier {
     return _isError;
   }
 
-  List<CategoriesModel> _pet = [];
-  List<CategoriesModel> get pets {
+  List<Profilemodel> _pet = [];
+  List<Profilemodel> get pets {
     return [..._pet];
   }
 
-  Future CategoriesData({required BuildContext context}) async {
+  Future ProfileData({required BuildContext context}) async {
     try {
       _isLoading = true;
 
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_categories.php"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=1"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_categories.php");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=1");
 
       print(response.body);
 
@@ -52,12 +52,18 @@ class CategoryPetsProvider with ChangeNotifier {
         _pet = [];
         var extractedData = json.decode(response.body);
 
-        final List<dynamic> Category = extractedData["categories"];
+        final List<dynamic> Category = extractedData["userDetails"];
         for (var i = 0; i < Category.length; i++) {
           _pet.add(
-            CategoriesModel(
-              id: Category[i]['id'].toString(),
-              name: Category[i]['name'].toString(),
+            Profilemodel(
+              firstname: Category[i]['firstname'].toString(),
+              lastname: Category[i]['lastname'].toString(),
+              dob: Category[i]['dob'].toString(),
+              phone: Category[i]['phone'].toString(),
+              email: Category[i]['email'].toString(),
+              address: Category[i]['address'].toString(),
+              gender: Category[i]['gender'].toString(),
+              userid: Category[i]['userid'].toString(),
               photo: Category[i]['photo'].toString(),
             ),
           );

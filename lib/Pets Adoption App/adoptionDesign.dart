@@ -1,7 +1,5 @@
 import 'package:final_project/Pets%20Adoption%20App/adoptionAPI.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoptionWidget.dart';
-import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/apiwidgetHome.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';

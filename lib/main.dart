@@ -1,7 +1,7 @@
 import 'package:final_project/Pets%20Adoption%20App/adoptionAPI.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/apidesignHome.dart';
+
 import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
@@ -12,6 +12,7 @@ import 'package:final_project/Pets%20Adoption%20App/page1.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedDesign.dart';
+import 'package:final_project/profileAPI.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => AdoptProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProfilePetsProvider(),
         ),
       ],
       child: MaterialApp(

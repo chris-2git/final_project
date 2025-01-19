@@ -1,7 +1,5 @@
-import 'package:final_project/Pets%20Adoption%20App/sepratedApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedDesign.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Criclewid extends StatefulWidget {
   final String id;

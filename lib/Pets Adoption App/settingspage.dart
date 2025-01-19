@@ -1,5 +1,6 @@
 import 'package:final_project/Pets%20Adoption%20App/Privacy.dart';
 import 'package:final_project/Pets%20Adoption%20App/help.dart';
+import 'package:final_project/review.dart';
 import 'package:flutter/material.dart';
 
 class Settingspage extends StatefulWidget {
@@ -51,6 +52,20 @@ class _SettingspageState extends State<Settingspage> {
             child: lists(
               'Help',
               Icons.help,
+              Icons.arrow_right,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Review(),
+                  ));
+            },
+            child: lists(
+              'Review',
+              Icons.reviews,
               Icons.arrow_right,
             ),
           ),

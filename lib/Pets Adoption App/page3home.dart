@@ -1,9 +1,7 @@
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
-import 'package:final_project/Pets%20Adoption%20App/apidesignHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiwidgetHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/criclewidget.dart';
-import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +14,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  TextEditingController searchcontroller = TextEditingController();
   @override
   void initState() {
     Provider.of<PetsProvider>(context, listen: false)
@@ -69,6 +68,7 @@ class _HomepageState extends State<Homepage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                controller: searchcontroller,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -88,6 +88,12 @@ class _HomepageState extends State<Homepage> {
                   hintText: 'Search',
                   hintStyle: TextStyle(color: Colors.black, fontSize: 19),
                 ),
+                onChanged: (value) {
+                  if (value != '') {
+                    String searchquery = value.toLowerCase();
+                    pet.allserachData(context: context, keyword: searchquery);
+                  }
+                },
               ),
               SizedBox(height: size.height * 0.02),
               Container(
@@ -187,39 +193,84 @@ class _HomepageState extends State<Homepage> {
                     )
                   : pet.pets.isEmpty
                       ? Text('Loading...')
-                      : SizedBox(
-                          height: size.height * 0.9,
-                          child: GridView.builder(
-                            itemCount: pet.pets.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 15,
-                                    mainAxisSpacing: 15,
-                                    childAspectRatio: 0.7),
-                            itemBuilder: (context, index) {
-                              return PetWidget(
-                                petid: pet.pets[index].petid,
-                                name: pet.pets[index].name,
-                                species: pet.pets[index].species,
-                                breed: pet.pets[index].breed,
-                                age: pet.pets[index].age,
-                                sex: pet.pets[index].sex,
-                                color: pet.pets[index].sex,
-                                weight: pet.pets[index].weight,
-                                dob: pet.pets[index].dob,
-                                microchipid: pet.pets[index].microchipid,
-                                aid: pet.pets[index].aid,
-                                diet: pet.pets[index].diet,
-                                behaviour: pet.pets[index].behaviour,
-                                status: pet.pets[index].status,
-                                notes: pet.pets[index].notes,
-                                addeddate: pet.pets[index].addeddate,
-                                photo: pet.pets[index].photo,
-                              );
-                            },
-                          ),
-                        ),
+                      : pet.serach.isEmpty && searchcontroller.text.isNotEmpty
+                          ? Center(
+                              child: Center(
+                                  child: Text(
+                                'No Pets Avaliable',
+                                style: TextStyle(color: Colors.black),
+                              )),
+                            )
+                          : searchcontroller.text.isNotEmpty &&
+                                  pet.serach.isNotEmpty
+                              ? SizedBox(
+                                  height: size.height * 0.9,
+                                  child: GridView.builder(
+                                    itemCount: pet.serach.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 15,
+                                            mainAxisSpacing: 15,
+                                            childAspectRatio: 0.7),
+                                    itemBuilder: (context, index) {
+                                      return PetWidget(
+                                        petid: pet.serach[index].petid,
+                                        name: pet.serach[index].name,
+                                        species: pet.serach[index].species,
+                                        breed: pet.serach[index].breed,
+                                        age: pet.serach[index].age,
+                                        sex: pet.serach[index].sex,
+                                        color: pet.serach[index].sex,
+                                        weight: pet.serach[index].weight,
+                                        dob: pet.serach[index].dob,
+                                        microchipid:
+                                            pet.serach[index].microchipid,
+                                        aid: pet.serach[index].aid,
+                                        diet: pet.serach[index].diet,
+                                        behaviour: pet.serach[index].behaviour,
+                                        status: pet.serach[index].status,
+                                        notes: pet.serach[index].notes,
+                                        addeddate: pet.serach[index].addeddate,
+                                        photo: pet.serach[index].photo,
+                                      );
+                                    },
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: size.height * 0.9,
+                                  child: GridView.builder(
+                                    itemCount: pet.pets.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 15,
+                                            mainAxisSpacing: 15,
+                                            childAspectRatio: 0.7),
+                                    itemBuilder: (context, index) {
+                                      return PetWidget(
+                                        petid: pet.pets[index].petid,
+                                        name: pet.pets[index].name,
+                                        species: pet.pets[index].species,
+                                        breed: pet.pets[index].breed,
+                                        age: pet.pets[index].age,
+                                        sex: pet.pets[index].sex,
+                                        color: pet.pets[index].sex,
+                                        weight: pet.pets[index].weight,
+                                        dob: pet.pets[index].dob,
+                                        microchipid:
+                                            pet.pets[index].microchipid,
+                                        aid: pet.pets[index].aid,
+                                        diet: pet.pets[index].diet,
+                                        behaviour: pet.pets[index].behaviour,
+                                        status: pet.pets[index].status,
+                                        notes: pet.pets[index].notes,
+                                        addeddate: pet.pets[index].addeddate,
+                                        photo: pet.pets[index].photo,
+                                      );
+                                    },
+                                  ),
+                                ),
             ],
           ),
         ),

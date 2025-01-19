@@ -2,7 +2,6 @@ import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
-
 import 'package:final_project/Pets%20Adoption%20App/profile.dart';
 
 import 'package:flutter/material.dart';
