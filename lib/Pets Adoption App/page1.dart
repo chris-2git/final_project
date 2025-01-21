@@ -16,7 +16,7 @@ class _Page1State extends State<Page1> {
   }
 
   navigatehome() async {
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Pagelogin()));
   }

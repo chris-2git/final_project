@@ -10,6 +10,7 @@ import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 
 import 'package:final_project/Pets%20Adoption%20App/page1.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
+import 'package:final_project/Pets%20Adoption%20App/profileDesgin.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/sepratedDesign.dart';
 import 'package:final_project/profileAPI.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           'Seprated': (context) => SepratedDesgin(
                 categoryid: 'category_id',
               ),
+          'profile': (context) => Profilepage(),
           'detailscreen': (context) {
             String id = ModalRoute.of(context)!.settings.arguments.toString();
             return Detailpage(

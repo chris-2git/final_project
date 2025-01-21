@@ -60,6 +60,7 @@ class _PageregisterState extends State<Pageregister> {
       'firstname': firstname,
       'lastname': lastname,
       'dob': dob,
+      'phone': phone,
       'email': email,
       'password': password,
       'address': address,
@@ -83,7 +84,7 @@ class _PageregisterState extends State<Pageregister> {
             SnackBar(
               backgroundColor: Colors.amber,
               content: const Text(
-                'Login Successful!',
+                'Register successful!',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
@@ -96,7 +97,7 @@ class _PageregisterState extends State<Pageregister> {
           print(body);
           print("Response body${response.body}");
 
-          print('Login successful');
+          print('Register successful');
         } else if (jsonData['status'] == false) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

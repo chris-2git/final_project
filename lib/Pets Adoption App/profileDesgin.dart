@@ -2,9 +2,12 @@ import 'package:final_project/Pets%20Adoption%20App/editpage.dart';
 import 'package:final_project/Pets%20Adoption%20App/myorder.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:final_project/Pets%20Adoption%20App/settingspage.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Profilepage extends StatefulWidget {
+  static const routename = 'profile';
   const Profilepage({super.key});
 
   @override
@@ -12,6 +15,13 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
+  @override
+  void initState() {
+    Provider.of<ProfilePetsProvider>(context, listen: false)
+        .profileData(context: context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final sty = TextStyle(
@@ -89,7 +99,7 @@ class _ProfilepageState extends State<Profilepage> {
                             style: style2,
                           ),
                           Text(
-                            'Pincode :',
+                            'DOB :',
                             style: style2,
                           ),
                           Text(
@@ -106,26 +116,97 @@ class _ProfilepageState extends State<Profilepage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
-                            'Christy',
-                            style: style2,
+                          Consumer<ProfilePetsProvider>(
+                              builder: (context, value, child) {
+                            String username = "";
+                            for (var i = 0; i < value.users.length; i++) {
+                              username = value.users[i].firstname;
+                              print(username + 'vvvvvvvvv');
+                            }
+                            return Text(
+                              '$username',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 16),
+                            );
+                          }),
+                          Consumer<ProfilePetsProvider>(
+                            builder: (context, value, child) {
+                              String useraddress = "";
+                              for (var i = 0; i < value.users.length; i++) {
+                                useraddress = value.users[i].address;
+                                print(useraddress + 'address');
+                              }
+                              return Text(
+                                '$useraddress',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                              );
+                            },
                           ),
-                          Text(
-                            'Panikalathu.....',
-                            style: style2,
-                          ),
-                          Text(
-                            '67894',
-                            style: style2,
-                          ),
-                          Text(
-                            'christyjos@gmail.com',
-                            style: style2,
-                          ),
-                          Text(
-                            '987656789',
-                            style: style2,
-                          ),
+                          Consumer<ProfilePetsProvider>(
+                              builder: (context, value, child) {
+                            String userpin = "";
+                            for (var i = 0; i < value.users.length; i++) {
+                              userpin = value.users[i].dob;
+                              print(userpin + 'pincode');
+                            }
+                            return Text(
+                              '$userpin',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 16),
+                            );
+                          }),
+                          Consumer<ProfilePetsProvider>(
+                              builder: (context, value, child) {
+                            String useremail = "";
+                            for (var i = 0; i < value.users.length; i++) {
+                              useremail = value.users[i].email;
+                              print(useremail + 'vvvvvvvvv');
+                            }
+                            return Text(
+                              '$useremail',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 16),
+                            );
+                          }),
+                          Consumer<ProfilePetsProvider>(
+                              builder: (context, value, child) {
+                            String useremail = "";
+                            for (var i = 0; i < value.users.length; i++) {
+                              useremail = value.users[i].phone;
+                              print(useremail + '');
+                            }
+                            return Text(
+                              '$useremail',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 16),
+                            );
+                          }),
                         ],
                       ),
                       IconButton(
@@ -140,7 +221,7 @@ class _ProfilepageState extends State<Profilepage> {
                           },
                           icon: Icon(
                             Icons.edit,
-                            color: Colors.black,
+                            color: Colors.white,
                           )),
                     ],
                   ),

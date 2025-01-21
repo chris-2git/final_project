@@ -49,10 +49,7 @@ class _FavouritepageState extends State<Favouritepage> {
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15)),
                   image: DecorationImage(
-                      image: AssetImage(
-                        img[index],
-                      ),
-                      fit: BoxFit.cover),
+                      image: AssetImage(img[index]), fit: BoxFit.cover),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,

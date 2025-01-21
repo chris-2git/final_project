@@ -28,49 +28,54 @@ class ProfilePetsProvider with ChangeNotifier {
     return _isError;
   }
 
-  List<Profilemodel> _pet = [];
-  List<Profilemodel> get pets {
-    return [..._pet];
+  List<Profilemodel> _user = [];
+  List<Profilemodel> get users {
+    return [..._user];
   }
 
-  Future ProfileData({required BuildContext context}) async {
+  String? currentUserId;
+  void setCurrentUserId(String userId) {
+    currentUserId = userId;
+    notifyListeners();
+  }
+
+  Future profileData({required BuildContext context}) async {
     try {
       _isLoading = true;
 
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=1"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=$currentUserId"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=1");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/view_profile.php?user_id=$currentUserId");
 
       print(response.body);
 
       if (response.statusCode == 200) {
         _isLoading = false;
-        _pet = [];
+        _user = [];
         var extractedData = json.decode(response.body);
-
-        final List<dynamic> Category = extractedData["userDetails"];
-        for (var i = 0; i < Category.length; i++) {
-          _pet.add(
+        if (extractedData is Map<String, dynamic> &&
+            extractedData.containsKey('userDetails')) {
+          final userDetails = extractedData['userDetails'];
+          _user.add(
             Profilemodel(
-              firstname: Category[i]['firstname'].toString(),
-              lastname: Category[i]['lastname'].toString(),
-              dob: Category[i]['dob'].toString(),
-              phone: Category[i]['phone'].toString(),
-              email: Category[i]['email'].toString(),
-              address: Category[i]['address'].toString(),
-              gender: Category[i]['gender'].toString(),
-              userid: Category[i]['userid'].toString(),
-              photo: Category[i]['photo'].toString(),
+              userid: userDetails['userid'].toString(),
+              firstname: userDetails['firstname'].toString(),
+              lastname: userDetails['lastname'].toString(),
+              email: userDetails['email'].toString(),
+              phone: userDetails['phone'].toString(),
+              address: userDetails['address'].toString(),
+              photo: userDetails['photo'].toString(),
+              dob: userDetails['dob'].toString(),
+              gender: userDetails['gender'].toString(),
             ),
           );
         }
-        ;
 
-        print('product details' + _pet.toString());
+        print('product details' + _user.toString());
         _isLoading = false;
         print('products loading completed --->' + 'loading data');
         notifyListeners();

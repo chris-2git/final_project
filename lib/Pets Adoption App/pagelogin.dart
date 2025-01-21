@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:final_project/Pets%20Adoption%20App/page2.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagereg.dart';
+import 'package:final_project/profileAPI.dart';
+import 'package:final_project/profileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class Pagelogin extends StatefulWidget {
   const Pagelogin({super.key});
@@ -26,7 +29,7 @@ class _PageloginState extends State<Pagelogin> {
 
   Future<void> loginpage(String email, String password) async {
     const url =
-        'http://campus.sicsglobal.co.in/Project/PetAdoption/api/login.php';
+        'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/login.php';
     Map<String, String> body = {
       'email': email,
       'password': password,
@@ -40,6 +43,15 @@ class _PageloginState extends State<Pagelogin> {
       var jsonData = json.decode(response.body);
       if (response.statusCode == 200) {
         if (jsonData['status'] == true) {
+          List user = jsonData['userDetails'];
+          if (user.isNotEmpty) {
+            Profilemodel userdata = Profilemodel.fromJson(user[0]);
+            String userId = userdata.userid;
+            Provider.of<ProfilePetsProvider>(context, listen: false)
+                .setCurrentUserId(userId);
+            print(userId);
+          }
+
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Page2()));
           ScaffoldMessenger.of(context).showSnackBar(
