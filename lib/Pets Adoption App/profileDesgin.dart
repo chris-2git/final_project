@@ -82,67 +82,51 @@ class _ProfilepageState extends State<Profilepage> {
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.grey.withRed(9),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            'Name :',
-                            style: style2,
-                          ),
-                          Text(
-                            'Adress :',
-                            style: style2,
-                          ),
-                          Text(
-                            'DOB :',
-                            style: style2,
-                          ),
-                          Text(
-                            'Email :',
-                            style: style2,
-                          ),
-                          Text(
-                            'Phone No :',
-                            style: style2,
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Consumer<ProfilePetsProvider>(
-                              builder: (context, value, child) {
-                            String username = "";
-                            for (var i = 0; i < value.users.length; i++) {
-                              username = value.users[i].firstname;
-                              print(username + 'vvvvvvvvv');
-                            }
-                            return Text(
-                              '$username',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                            );
-                          }),
-                          Consumer<ProfilePetsProvider>(
-                            builder: (context, value, child) {
-                              String useraddress = "";
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Name :',
+                              style: style2,
+                            ),
+                            Text(
+                              'Adress :',
+                              style: style2,
+                            ),
+                            Text(
+                              'DOB :',
+                              style: style2,
+                            ),
+                            Text(
+                              'Email :',
+                              style: style2,
+                            ),
+                            Text(
+                              'Phone No :',
+                              style: style2,
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Consumer<ProfilePetsProvider>(
+                                builder: (context, value, child) {
+                              String username = "";
                               for (var i = 0; i < value.users.length; i++) {
-                                useraddress = value.users[i].address;
-                                print(useraddress + 'address');
+                                username = value.users[i].firstname;
+                                print(username + 'vvvvvvvvv');
                               }
                               return Text(
-                                '$useraddress',
+                                '$username',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
@@ -151,79 +135,99 @@ class _ProfilepageState extends State<Profilepage> {
                                         color: Colors.white,
                                         fontSize: 16),
                               );
+                            }),
+                            Consumer<ProfilePetsProvider>(
+                              builder: (context, value, child) {
+                                String useraddress = "";
+                                for (var i = 0; i < value.users.length; i++) {
+                                  useraddress = value.users[i].address;
+                                  print(useraddress + 'address');
+                                }
+                                return Text(
+                                  '$useraddress',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontSize: 13),
+                                );
+                              },
+                            ),
+                            Consumer<ProfilePetsProvider>(
+                                builder: (context, value, child) {
+                              String userpin = "";
+                              for (var i = 0; i < value.users.length; i++) {
+                                userpin = value.users[i].dob;
+                                print(userpin + 'pincode');
+                              }
+                              return Text(
+                                '$userpin',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                              );
+                            }),
+                            Consumer<ProfilePetsProvider>(
+                                builder: (context, value, child) {
+                              String useremail = "";
+                              for (var i = 0; i < value.users.length; i++) {
+                                useremail = value.users[i].email;
+                                print(useremail + 'vvvvvvvvv');
+                              }
+                              return Text(
+                                '$useremail',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                              );
+                            }),
+                            Consumer<ProfilePetsProvider>(
+                                builder: (context, value, child) {
+                              String useremail = "";
+                              for (var i = 0; i < value.users.length; i++) {
+                                useremail = value.users[i].phone;
+                                print(useremail + '');
+                              }
+                              return Text(
+                                '$useremail',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 16),
+                              );
+                            }),
+                          ],
+                        ),
+                        IconButton(
+                            style: IconButton.styleFrom(
+                                backgroundColor: Colors.white),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Editpage(),
+                                  ));
                             },
-                          ),
-                          Consumer<ProfilePetsProvider>(
-                              builder: (context, value, child) {
-                            String userpin = "";
-                            for (var i = 0; i < value.users.length; i++) {
-                              userpin = value.users[i].dob;
-                              print(userpin + 'pincode');
-                            }
-                            return Text(
-                              '$userpin',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                            );
-                          }),
-                          Consumer<ProfilePetsProvider>(
-                              builder: (context, value, child) {
-                            String useremail = "";
-                            for (var i = 0; i < value.users.length; i++) {
-                              useremail = value.users[i].email;
-                              print(useremail + 'vvvvvvvvv');
-                            }
-                            return Text(
-                              '$useremail',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                            );
-                          }),
-                          Consumer<ProfilePetsProvider>(
-                              builder: (context, value, child) {
-                            String useremail = "";
-                            for (var i = 0; i < value.users.length; i++) {
-                              useremail = value.users[i].phone;
-                              print(useremail + '');
-                            }
-                            return Text(
-                              '$useremail',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 16),
-                            );
-                          }),
-                        ],
-                      ),
-                      IconButton(
-                          style: IconButton.styleFrom(
-                              backgroundColor: Colors.white),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Editpage(),
-                                ));
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                          )),
-                    ],
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                            )),
+                      ],
+                    ),
                   ),
                 ),
               ),

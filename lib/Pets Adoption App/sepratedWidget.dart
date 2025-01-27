@@ -80,19 +80,25 @@ class _SepratedWidState extends State<SepratedWid> {
                 ),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                IconButton(
-                  style: IconButton.styleFrom(backgroundColor: Colors.white),
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.favorite_border_outlined,
-                    color: Colors.white.withRed(20),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  CircleAvatar(
+                    child: IconButton(
+                      style:
+                          IconButton.styleFrom(backgroundColor: Colors.white),
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite_border_outlined,
+                        color: Colors.white.withRed(20),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Container(

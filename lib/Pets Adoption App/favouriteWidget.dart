@@ -1,4 +1,6 @@
+import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Favwidget extends StatefulWidget {
   final String favId;
@@ -47,6 +49,7 @@ class Favwidget extends StatefulWidget {
 class _FavwidgetState extends State<Favwidget> {
   @override
   Widget build(BuildContext context) {
+    final pet = Provider.of<FavPetsProvider>(context);
     final sty = TextStyle(
       color: Colors.black,
       fontSize: 15,
@@ -57,8 +60,8 @@ class _FavwidgetState extends State<Favwidget> {
     return Column(
       children: [
         Container(
-          width: size.width * 0.500,
-          height: size.height * 0.300,
+          height: 150,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15), topRight: Radius.circular(15)),
@@ -68,17 +71,30 @@ class _FavwidgetState extends State<Favwidget> {
                 ),
                 fit: BoxFit.cover),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.close)),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                      onPressed: () {
+                        pet.deleteFav(widget.favId, context);
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.grey.withRed(9),
+                      )),
+                ),
+              ],
+            ),
           ),
         ),
         Container(
-          width: size.width * 0.500,
-          height: size.height * 0.200,
+          height: 80,
+          width: 150,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(15),
@@ -87,30 +103,17 @@ class _FavwidgetState extends State<Favwidget> {
             color: Colors.grey.withRed(9),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 9),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Name:${widget.name}',
                   style: sty,
                 ),
+                SizedBox(height: 10),
                 Text(
                   'Breed:${widget.breed}',
-                ),
-                Text('Diet:${widget.diet}'),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.calendar_month,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text('DOB:${widget.dob}')
-                  ],
                 ),
               ],
             ),

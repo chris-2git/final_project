@@ -1,5 +1,8 @@
 import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +21,8 @@ class Detailpage extends StatefulWidget {
 class _DetailpageState extends State<Detailpage> {
   @override
   Widget build(BuildContext context) {
+    final pet = Provider.of<FavPetsProvider>(context);
+    final user = Provider.of<ProfilePetsProvider>(context);
     final detaildata = Provider.of<PetsProvider>(context)
         .pets
         .firstWhere((element) => element.petid == widget.id);
@@ -229,14 +234,25 @@ class _DetailpageState extends State<Detailpage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                style: IconButton.styleFrom(
-                                    backgroundColor: Colors.white),
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite_border_outlined,
-                                  size: 30,
-                                  color: Colors.pink.withRed(9),
+                              CircleAvatar(
+                                child: IconButton(
+                                  style: IconButton.styleFrom(
+                                      backgroundColor: Colors.white),
+                                  onPressed: () async {
+                                    pet.addItemToFavourites(
+                                        petid: detaildata.petid.toString(),
+                                        userid: user.currentUserId.toString());
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                FavouriteDesgin()));
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite_border_outlined,
+                                    size: 30,
+                                    color: Colors.pink.withRed(9),
+                                  ),
                                 ),
                               ),
                               GestureDetector(

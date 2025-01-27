@@ -1,5 +1,6 @@
 import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteWidget.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -16,8 +17,10 @@ class FavouriteDesgin extends StatefulWidget {
 
 class _FavouriteDesginScreenState extends State<FavouriteDesgin> {
   void initState() {
+    final user = Provider.of<ProfilePetsProvider>(context, listen: false);
     Provider.of<FavPetsProvider>(context, listen: false)
-        .FavData(context: context);
+        .FavData(context: context, userid: user.currentUserId);
+    super.initState();
   }
 
   @override
@@ -48,7 +51,7 @@ class _FavouriteDesginScreenState extends State<FavouriteDesgin> {
                         crossAxisCount: 2,
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
-                        childAspectRatio: 0.5),
+                        childAspectRatio: 0.7),
                     itemBuilder: (context, index) {
                       return Favwidget(
                         favId: pet.pets[index].favId,

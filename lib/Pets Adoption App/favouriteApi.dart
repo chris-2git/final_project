@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:final_project/Pets%20Adoption%20App/favouriteModel.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
+import 'package:provider/provider.dart';
 
 class FavPetsProvider with ChangeNotifier {
   bool _isLoading = false;
@@ -33,17 +35,17 @@ class FavPetsProvider with ChangeNotifier {
     return [..._pet];
   }
 
-  Future FavData({required BuildContext context}) async {
+  Future FavData({BuildContext? context, String? userid}) async {
     try {
       _isLoading = true;
 
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project//PetAdoption_New/api/viewfavpets.php?aid=1&petid=3"),
+            "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/viewfavpets.php?aid=$userid"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project//PetAdoption_New/api/viewfavpets.php?aid=1&petid=3");
+          "http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/viewfavpets.php?aid=$userid");
 
       print(response.body);
 
@@ -94,6 +96,52 @@ class FavPetsProvider with ChangeNotifier {
 
       _isSelect = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> deleteFav(String? favId, BuildContext context) async {
+    final user = Provider.of<ProfilePetsProvider>(context, listen: false);
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/PetAdoption/api/delete_fav.php?fid=$favId');
+
+    try {
+      final response = await https.delete(url);
+      print(url);
+      if (response.statusCode == 200) {
+        FavData(
+          userid: user.currentUserId,
+        );
+        // Cart deleted successfully
+        print('Cart deleted successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to delete cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error deleting cart: $e');
+    }
+  }
+
+  Future<void> addItemToFavourites({String? petid, String? userid}) async {
+    var body = {
+      'petid': petid.toString(),
+      'aid': userid.toString(),
+    };
+
+    try {
+      var response = await https.post(
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/addfavpet.php?aid=$userid&petid=$petid'),
+          body: body);
+
+      if (response.statusCode == 200) {
+        print('Added to cart successfully');
+        print('Response: ${response.body}');
+      } else {
+        print('Failed to add to cart. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Failed to add to cart. Exception: $e');
     }
   }
 }

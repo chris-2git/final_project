@@ -83,7 +83,7 @@ class _Page2State extends State<Page2> {
                   builder: (context, value, child) {
                 String username = "";
                 for (var i = 0; i < value.users.length; i++) {
-                  username = value.users[i].phone;
+                  username = value.users[i].firstname;
                   print(username + '');
                 }
                 return Text(
@@ -98,7 +98,7 @@ class _Page2State extends State<Page2> {
                   builder: (context, value, child) {
                 String useremail = "";
                 for (var i = 0; i < value.users.length; i++) {
-                  useremail = value.users[i].phone;
+                  useremail = value.users[i].email;
                   print(useremail + '');
                 }
                 return Text(

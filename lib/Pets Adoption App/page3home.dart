@@ -100,9 +100,10 @@ class _HomepageState extends State<Homepage> {
                 width: size.width * double.infinity,
                 height: size.height * 0.27,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.99)),
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.grey.withRed(9)),
+                  border: Border.all(color: Colors.grey.withOpacity(0.99)),
+                  borderRadius: BorderRadius.circular(15),
+                  color: Colors.grey.withRed(9),
+                ),
                 child: Row(
                   children: [
                     Column(

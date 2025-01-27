@@ -1,7 +1,6 @@
 import 'package:final_project/Pets%20Adoption%20App/categoryApi.dart';
 import 'package:final_project/Pets%20Adoption%20App/categoryWidget.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 class CategoryDesgin extends StatefulWidget {
