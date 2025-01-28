@@ -34,6 +34,7 @@ class _DetailpageState extends State<Detailpage> {
     final sty = TextStyle(
         color: Colors.white70, fontSize: 26, fontWeight: FontWeight.bold);
     final style = TextStyle(
+        fontStyle: FontStyle.italic,
         decoration: TextDecoration.underline,
         color: Colors.black,
         fontSize: 20,
@@ -68,39 +69,33 @@ class _DetailpageState extends State<Detailpage> {
               width: size.width * double.infinity,
               height: size.height * 0.600,
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                color: Colors.grey.withRed(3),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.elliptical(65, 65),
-                  topRight: Radius.elliptical(65, 65),
-                ),
-              ),
+                  border: Border.all(color: Colors.grey),
+                  color: Colors.grey.withRed(3),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.elliptical(65, 65),
+                    topRight: Radius.elliptical(65, 65),
+                  )),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            detaildata.name,
-                            style: st,
-                          ),
-                          Text(
-                            detaildata.breed,
-                            style: styl,
-                          ),
-                          Text(detaildata.species),
-                        ],
-                      ),
-                      Text(
-                        'Rs:',
-                        style: sty,
-                      )
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                detaildata.name,
+                                style: st,
+                              ),
+                              Text(detaildata.breed, style: styl),
+                              Text(detaildata.species),
+                            ]),
+                        Text(
+                          'Rs:',
+                          style: sty,
+                        )
+                      ]),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -121,10 +116,7 @@ class _DetailpageState extends State<Detailpage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                detaildata.sex,
-                                style: style2,
-                              ),
+                              Text(detaildata.sex, style: style2),
                               Text(
                                 'Sex',
                               ),
@@ -149,10 +141,7 @@ class _DetailpageState extends State<Detailpage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                detaildata.age,
-                                style: style2,
-                              ),
+                              Text(detaildata.age, style: style2),
                               Text(
                                 'Age',
                               ),
@@ -167,27 +156,18 @@ class _DetailpageState extends State<Detailpage> {
                           height: size.height * 0.10,
                           decoration: BoxDecoration(
                             color: Colors.white70,
-                            borderRadius: BorderRadius.circular(
-                              19,
-                            ),
-                            border: Border.all(
-                              color: Colors.grey,
-                            ),
+                            borderRadius: BorderRadius.circular(19),
+                            border: Border.all(color: Colors.grey),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text(
-                                detaildata.dob,
-                                style: style2,
-                              ),
+                              Text(detaildata.dob, style: style2),
                               Text('DOB'),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          width: size.width * 0.03,
-                        ),
+                        SizedBox(width: size.width * 0.03),
                         Container(
                           width: size.width * 0.20,
                           height: size.height * 0.10,
@@ -210,7 +190,7 @@ class _DetailpageState extends State<Detailpage> {
                               Text('Colour'),
                             ],
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -223,18 +203,27 @@ class _DetailpageState extends State<Detailpage> {
                           'Description:',
                           style: style,
                         ),
-                        Text(detaildata.behaviour),
-                        Text(detaildata.notes),
-                        Text(detaildata.diet),
                         SizedBox(
-                          height: size.height * 0.03,
+                          height: size.height * 0.01,
                         ),
+                        Text(detaildata.behaviour),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Text(detaildata.notes),
+                        SizedBox(
+                          height: size.height * 0.01,
+                        ),
+                        Text(detaildata.diet),
+                        SizedBox(height: size.height * 0.03),
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 30,
                                 child: IconButton(
                                   style: IconButton.styleFrom(
                                       backgroundColor: Colors.white),
@@ -243,15 +232,16 @@ class _DetailpageState extends State<Detailpage> {
                                         petid: detaildata.petid.toString(),
                                         userid: user.currentUserId.toString());
                                     await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                FavouriteDesgin()));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FavouriteDesgin(),
+                                      ),
+                                    );
                                   },
                                   icon: Icon(
                                     Icons.favorite_border_outlined,
                                     size: 30,
-                                    color: Colors.pink.withRed(9),
+                                    color: Colors.grey.withRed(20),
                                   ),
                                 ),
                               ),
@@ -269,15 +259,9 @@ class _DetailpageState extends State<Detailpage> {
                                       backgroundColor: const Color.fromARGB(
                                           255, 100, 134, 162)),
                                   onPressed: () {},
-                                  icon: Icon(
-                                    Icons.pets,
-                                    size: 30,
-                                    color: Colors.white,
-                                  ),
-                                  label: Text(
-                                    'adopt',
-                                    style: style1,
-                                  ),
+                                  icon: Icon(Icons.pets,
+                                      size: 30, color: Colors.white),
+                                  label: Text('adopt', style: style1),
                                 ),
                               ),
                             ],

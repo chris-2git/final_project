@@ -1,5 +1,10 @@
+import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/detailedpage.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SepratedWid extends StatefulWidget {
   final String petid;
@@ -46,6 +51,11 @@ class SepratedWid extends StatefulWidget {
 class _SepratedWidState extends State<SepratedWid> {
   @override
   Widget build(BuildContext context) {
+    final pet = Provider.of<FavPetsProvider>(context);
+    final user = Provider.of<ProfilePetsProvider>(context);
+    final detaildata = Provider.of<PetsProvider>(context)
+        .pets
+        .firstWhere((element) => element.petid == widget.petid);
     final sty = TextStyle(
       color: Colors.black,
       fontSize: 18,
@@ -87,13 +97,26 @@ class _SepratedWidState extends State<SepratedWid> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 25,
                     child: IconButton(
-                      style:
-                          IconButton.styleFrom(backgroundColor: Colors.white),
-                      onPressed: () {},
+                      style: IconButton.styleFrom(
+                          backgroundColor: Colors.grey, iconSize: 10),
+                      onPressed: () async {
+                        pet.addItemToFavourites(
+                            petid: detaildata.petid.toString(),
+                            userid: user.currentUserId.toString());
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FavouriteDesgin(),
+                          ),
+                        );
+                      },
                       icon: Icon(
                         Icons.favorite_border_outlined,
-                        color: Colors.white.withRed(20),
+                        size: 30,
+                        color: Colors.grey.withRed(20),
                       ),
                     ),
                   ),
