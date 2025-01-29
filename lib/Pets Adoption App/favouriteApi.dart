@@ -111,10 +111,9 @@ class FavPetsProvider with ChangeNotifier {
         FavData(
           userid: user.currentUserId,
         );
-        // Cart deleted successfully
+
         print('Cart deleted successfully');
       } else {
-        // Failed to delete cart
         print('Failed to delete cart: ${response.statusCode}');
       }
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Helppage extends StatefulWidget {
   const Helppage({super.key});
@@ -13,7 +14,9 @@ class _HelppageState extends State<Helppage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.withRed(9),
-        title: Text('Help?'),
+        title: Text(
+          'Help?',
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,7 +25,17 @@ class _HelppageState extends State<Helppage> {
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey.withRed(9)),
-              onPressed: () {},
+              onPressed: () async {
+                final Uri url = Uri(
+                  scheme: 'tel',
+                  path: "7306715207",
+                );
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
+                } else {
+                  print('cannot lanuch this url');
+                }
+              },
               icon: Icon(
                 Icons.call,
                 color: Colors.black,
@@ -35,7 +48,6 @@ class _HelppageState extends State<Helppage> {
               ),
             ),
           ),
-          Text('Ph No. 678908765'),
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey.withRed(9)),

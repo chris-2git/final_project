@@ -1,5 +1,6 @@
+import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/editpage.dart';
-import 'package:final_project/Pets%20Adoption%20App/myorder.dart';
+import 'package:final_project/Pets%20Adoption%20App/favouriteDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:final_project/Pets%20Adoption%20App/settingspage.dart';
 import 'package:final_project/profileAPI.dart';
@@ -244,7 +245,7 @@ class _ProfilepageState extends State<Profilepage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => Myorderpage(),
+                            builder: (context) => Adoptdesign(),
                           ));
                     },
                     child: Row(
@@ -266,7 +267,12 @@ class _ProfilepageState extends State<Profilepage> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey.withRed(9)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FavouriteDesgin()));
+                    },
                     icon: Icon(
                       Icons.favorite,
                       color: Colors.white,

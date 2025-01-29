@@ -27,25 +27,6 @@ class _SettingspageState extends State<Settingspage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Privacypage(),
-                  ));
-            },
-            child: lists(
-              'Privacy & Policy',
-              Icons.lock,
-              Icons.arrow_right,
-            ),
-          ),
-          lists(
-            'Notification',
-            Icons.notifications,
-            Icons.arrow_right,
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
                     builder: (context) => Helppage(),
                   ));
             },
@@ -66,6 +47,20 @@ class _SettingspageState extends State<Settingspage> {
             child: lists(
               'Review',
               Icons.reviews,
+              Icons.arrow_right,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Privacypage(),
+                  ));
+            },
+            child: lists(
+              'Privacy & Policy',
+              Icons.lock,
               Icons.arrow_right,
             ),
           ),
