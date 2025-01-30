@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:final_project/Pets%20Adoption%20App/settingspage.dart';
 import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
@@ -7,6 +10,7 @@ import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
 import 'package:final_project/Pets%20Adoption%20App/profileDesgin.dart';
 import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
 
 class Page2 extends StatefulWidget {
   const Page2({super.key});
@@ -23,24 +27,6 @@ class _Page2State extends State<Page2> {
       _petsIndex = index;
     });
   }
-
-  final List<String> iconame = [
-    'Contacts',
-    'Calls',
-    'Saved Pets',
-    'Invite friends',
-    'Dark Glow',
-    'Settings',
-  ];
-
-  final List<IconData> iconss = [
-    Icons.contacts,
-    Icons.call,
-    Icons.save_alt_rounded,
-    Icons.inventory_2_rounded,
-    Icons.pause,
-    Icons.settings,
-  ];
 
   final List<Widget> _petsOptions = <Widget>[
     Homepage(),
@@ -68,12 +54,14 @@ class _Page2State extends State<Page2> {
       fontSize: 19,
       fontStyle: FontStyle.normal,
     );
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 206, 204, 204),
       drawer: Drawer(
         backgroundColor: Color.fromARGB(255, 215, 210, 210),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
@@ -113,35 +101,55 @@ class _Page2State extends State<Page2> {
                 backgroundImage: AssetImage('assets/profile1.jpg'),
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: iconame.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: Icon(iconss[index]),
-                    title: Text(iconame[index], style: sty),
-                    onTap: () {
-                      Navigator.pop(context);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(iconame[index]),
-                            content: Text('You tapped on ${iconame[index]}.'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Close'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FavouriteDesgin(),
+                    ));
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.favorite_border_outlined),
+                  SizedBox(
+                    width: size.width * 0.04,
+                  ),
+                  Text(
+                    'Favourite Pets',
+                    style: sty,
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Icon(Icons.dark_mode),
+                SizedBox(
+                  width: size.width * 0.04,
+                ),
+                Text(
+                  'Dark Mode',
+                  style: sty,
+                ),
+              ],
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Settingspage()));
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.settings),
+                  SizedBox(
+                    width: size.width * 0.04,
+                  ),
+                  Text(
+                    'Settings',
+                    style: sty,
+                  ),
+                ],
               ),
             ),
             Padding(

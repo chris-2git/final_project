@@ -1,3 +1,4 @@
+import 'package:final_project/Pets%20Adoption%20App/page2.dart';
 import 'package:final_project/Pets%20Adoption%20App/page3home.dart';
 import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
@@ -25,21 +26,11 @@ class _ReviewState extends State<Review> {
 
   String? currentUserId;
 
-  Future<void> submitFeedback(String? userId, String message) async {
-    if (userId == null || message.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('User ID or message cannot be empty.'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      return;
-    }
-
+  Future<void> submitFeedback(String? message, String userid) async {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/add_feedback.php?user_id=$userId&message=$message'),
+            'http://campus.sicsglobal.co.in/Project/PetAdoption_New/api/add_feedback.php?user_id=$userid&message=$message'),
       );
 
       print('Response status: ${response.statusCode}');
@@ -50,13 +41,6 @@ class _ReviewState extends State<Review> {
           SnackBar(
             content: Text('Feedback submitted successfully!'),
             backgroundColor: Colors.green,
-          ),
-        );
-        // Navigate to Homepage after successful submission
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Homepage(),
           ),
         );
       } else {
@@ -81,6 +65,7 @@ class _ReviewState extends State<Review> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = Provider.of<ProfilePetsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.withRed(9),
@@ -131,11 +116,13 @@ class _ReviewState extends State<Review> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 submitFeedback(
-                  currentUserId,
-                  feedbackController.text.trim(),
+                  feedbackController.text.toString(),
+                  user.currentUserId.toString(),
                 );
+                await Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Page2()));
               },
               child: Text('Submit'),
             ),

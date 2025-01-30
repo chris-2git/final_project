@@ -1,5 +1,6 @@
 import 'package:final_project/Pets%20Adoption%20App/adoptionAPI.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoptionWidget.dart';
+import 'package:final_project/profileAPI.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -16,8 +17,10 @@ class Adoptdesign extends StatefulWidget {
 
 class _AdoptdesignState extends State<Adoptdesign> {
   void initState() {
+    final user = Provider.of<ProfilePetsProvider>(context, listen: false);
     Provider.of<AdoptProvider>(context, listen: false)
-        .adoptData(context: context);
+        .adoptData(context: context, userid: user.currentUserId);
+    super.initState();
   }
 
   @override

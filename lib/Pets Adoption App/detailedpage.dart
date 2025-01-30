@@ -1,3 +1,4 @@
+import 'package:final_project/Pets%20Adoption%20App/adoptionAPI.dart';
 import 'package:final_project/Pets%20Adoption%20App/adoptionDesign.dart';
 import 'package:final_project/Pets%20Adoption%20App/apiHome.dart';
 import 'package:final_project/Pets%20Adoption%20App/favouriteApi.dart';
@@ -21,6 +22,7 @@ class Detailpage extends StatefulWidget {
 class _DetailpageState extends State<Detailpage> {
   @override
   Widget build(BuildContext context) {
+    final adopt = Provider.of<AdoptProvider>(context);
     final pet = Provider.of<FavPetsProvider>(context);
     final user = Provider.of<ProfilePetsProvider>(context);
     final detaildata = Provider.of<PetsProvider>(context)
@@ -245,24 +247,23 @@ class _DetailpageState extends State<Detailpage> {
                                   ),
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
+                              ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                    shadowColor: Colors.black,
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 100, 134, 162)),
+                                onPressed: () async {
+                                  adopt.addAdoptPet(
+                                      userid: user.currentUserId,
+                                      petid: detaildata.petid);
+                                  await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Adoptdesign(),
-                                      ));
+                                          builder: (context) => Adoptdesign()));
                                 },
-                                child: ElevatedButton.icon(
-                                  style: ElevatedButton.styleFrom(
-                                      shadowColor: Colors.black,
-                                      backgroundColor: const Color.fromARGB(
-                                          255, 100, 134, 162)),
-                                  onPressed: () {},
-                                  icon: Icon(Icons.pets,
-                                      size: 30, color: Colors.white),
-                                  label: Text('adopt', style: style1),
-                                ),
+                                icon: Icon(Icons.pets,
+                                    size: 30, color: Colors.white),
+                                label: Text('adopt', style: style1),
                               ),
                             ],
                           ),
