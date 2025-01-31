@@ -59,36 +59,39 @@ class _FavwidgetState extends State<Favwidget> {
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
-        Container(
-          height: 150,
-          width: 150,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-            image: DecorationImage(
-                image: NetworkImage(
-                  widget.photo,
-                ),
-                fit: BoxFit.cover),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                      onPressed: () {
-                        pet.deleteFav(widget.favId, context);
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.grey.withRed(9),
-                      )),
-                ),
-              ],
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 150,
+            width: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+              image: DecorationImage(
+                  image: NetworkImage(
+                    widget.photo,
+                  ),
+                  fit: BoxFit.cover),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                        onPressed: () {
+                          pet.deleteFav(widget.favId, context);
+                        },
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.grey.withRed(9),
+                        )),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

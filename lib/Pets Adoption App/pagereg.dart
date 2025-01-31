@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 import 'package:flutter/material.dart';
-
 import 'package:http/http.dart' as http;
+import 'package:final_project/Pets%20Adoption%20App/pagelogin.dart';
 
 class Pageregister extends StatefulWidget {
   const Pageregister({super.key});
@@ -15,21 +13,23 @@ class Pageregister extends StatefulWidget {
 
 class _PageregisterState extends State<Pageregister> {
   bool _isObscure = true;
-  void _passlock() {
+
+  void _togglePasswordVisibility() {
     setState(() {
       _isObscure = !_isObscure;
     });
   }
 
-  TextEditingController firstnamecontroller = TextEditingController();
-  TextEditingController lastnamecontroller = TextEditingController();
-  TextEditingController dobcontroller = TextEditingController();
-  TextEditingController phonecontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController addresscontroller = TextEditingController();
-  TextEditingController gendercontroller = TextEditingController();
-  final formkey = GlobalKey<FormState>();
+  final TextEditingController firstnamecontroller = TextEditingController();
+  final TextEditingController lastnamecontroller = TextEditingController();
+  final TextEditingController dobcontroller = TextEditingController();
+  final TextEditingController phonecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController passwordcontroller = TextEditingController();
+  final TextEditingController addresscontroller = TextEditingController();
+  final TextEditingController gendercontroller = TextEditingController();
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -38,10 +38,34 @@ class _PageregisterState extends State<Pageregister> {
       lastDate: DateTime(2101),
     );
 
-    if (picked != null && picked != DateTime.now()) {
+    if (picked != null) {
       String formattedDate = "${picked.year}-${picked.month}-${picked.day}";
-      dobcontroller.text = formattedDate;
+      setState(() {
+        dobcontroller.text = formattedDate;
+      });
     }
+  }
+
+  // Email Validation
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) return 'Email is required';
+    String emailPattern = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$';
+    return RegExp(emailPattern).hasMatch(value) ? null : 'Enter a valid email';
+  }
+
+  // Password Validation
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) return 'Password is required';
+    String passwordPattern =
+        r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$';
+    return RegExp(passwordPattern).hasMatch(value)
+        ? null
+        : 'Password must have:\n'
+            '- 8+ characters\n'
+            '- 1 uppercase letter\n'
+            '- 1 lowercase letter\n'
+            '- 1 number\n'
+            '- 1 special character';
   }
 
   Future<void> registerapi(
@@ -68,52 +92,29 @@ class _PageregisterState extends State<Pageregister> {
     };
 
     try {
-      final response = await http.post(
-        Uri.parse(url),
-        body: body,
-      );
-      print(url);
+      final response = await http.post(Uri.parse(url), body: body);
       var jsonData = json.decode(response.body);
-      print(jsonData);
-      print(
-        jsonData["status"],
-      );
-      if (response.statusCode == 200) {
-        if (jsonData['status'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.amber,
-              content: const Text(
-                'Register successful!',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              duration: const Duration(seconds: 4),
-            ),
-          );
 
+      if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor:
+                jsonData['status'] == true ? Colors.green : Colors.red,
+            content: Text(
+              jsonData['status'] == true
+                  ? 'Registration Successful!'
+                  : 'Invalid phone or password',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+            duration: Duration(seconds: 3),
+          ),
+        );
+
+        if (jsonData['status'] == true) {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => Pagelogin()));
-          print(body);
-          print("Response body${response.body}");
-
-          print('Register successful');
-        } else if (jsonData['status'] == false) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.amber,
-              content: const Text(
-                'Invalid phone and password',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              duration: const Duration(seconds: 4),
-            ),
-          );
-          print('Error: ${response.statusCode}');
         }
-      } else {
-        print('fffff');
       }
     } catch (error) {
       print('Error: $error');
@@ -129,11 +130,11 @@ class _PageregisterState extends State<Pageregister> {
           key: formkey,
           child: Container(
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(
-                      'assets/petsall.webp',
-                    ),
-                    fit: BoxFit.cover)),
+              image: DecorationImage(
+                image: AssetImage('assets/pets1.webp'),
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.all(28.0),
               child: Column(
@@ -142,119 +143,55 @@ class _PageregisterState extends State<Pageregister> {
                   Text(
                     'Create Your Account',
                     style: TextStyle(
-                        color: Color.fromARGB(255, 183, 157, 146),
+                        color: Colors.grey.withRed(9),
                         fontSize: 27,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
+                  SizedBox(height: 25),
                   Sampletextform('Firstname', Icons.person, firstnamecontroller,
                       (value) {
-                    if (firstnamecontroller.text.isEmpty) {
-                      return 'Please enter your firstname';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
+                    return value!.isEmpty
+                        ? 'Please enter your firstname'
+                        : null;
+                  }),
                   Sampletextform('Lastname', Icons.person, lastnamecontroller,
                       (value) {
-                    if (lastnamecontroller.text.isEmpty) {
-                      return 'Please enter your lastname';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
+                    return value!.isEmpty ? 'Please enter your lastname' : null;
+                  }),
                   Sampletextform('DOB', Icons.calendar_month, dobcontroller,
                       (value) {
-                    if (dobcontroller.text.isEmpty) {
-                      return 'Please enter your dob';
-                    } else {
-                      return null;
-                    }
-                  }, () {
-                    _selectDate(context);
-                  }),
+                    return value!.isEmpty ? 'Please enter your DOB' : null;
+                  }, onTap: () => _selectDate(context)),
                   Sampletextform('Phone', Icons.phone, phonecontroller,
                       (value) {
-                    if (phonecontroller.text.isEmpty) {
-                      return 'Please enter your phone';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
-                  Sampletextform('Email', Icons.email, emailcontroller,
-                      (value) {
-                    if (emailcontroller.text.isEmpty) {
-                      return 'Please enter your email';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                      controller: passwordcontroller,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide(color: Colors.white),
-                        ),
-                        hintText: 'Password',
-                        prefixIcon: Icon(
-                          Icons.lock,
-                        ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _isObscure
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: _passlock,
-                        ),
-                        fillColor: Colors.white.withOpacity(0.5),
-                        filled: true,
-                      ),
-                      obscureText: _isObscure,
-                    ),
-                  ),
+                    return value!.isEmpty ? 'Please enter your phone' : null;
+                  }),
+                  Sampletextform(
+                      'Email', Icons.email, emailcontroller, validateEmail),
+                  Sampletextform('Password', Icons.lock, passwordcontroller,
+                      validatePassword,
+                      isPassword: true),
                   Sampletextform('Address', Icons.place, addresscontroller,
                       (value) {
-                    if (addresscontroller.text.isEmpty) {
-                      return 'Please enter your address';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
+                    return value!.isEmpty ? 'Please enter your address' : null;
+                  }),
                   Sampletextform('Gender', Icons.male, gendercontroller,
                       (value) {
-                    if (gendercontroller.text.isEmpty) {
-                      return 'Please enter your gender';
-                    } else {
-                      return null;
-                    }
-                  }, () {}),
-                  SizedBox(
-                    height: 40,
-                  ),
+                    return value!.isEmpty ? 'Please enter your gender' : null;
+                  }),
+                  SizedBox(height: 40),
                   GestureDetector(
                     onTap: () {
                       if (formkey.currentState!.validate()) {
                         registerapi(
-                          firstnamecontroller.text.toString(),
-                          lastnamecontroller.text.toString(),
-                          dobcontroller.text.toString(),
-                          phonecontroller.text.toString(),
-                          emailcontroller.text.toString(),
-                          passwordcontroller.text.toString(),
-                          addresscontroller.text.toString(),
-                          gendercontroller.text.toString(),
+                          firstnamecontroller.text,
+                          lastnamecontroller.text,
+                          dobcontroller.text,
+                          phonecontroller.text,
+                          emailcontroller.text,
+                          passwordcontroller.text,
+                          addresscontroller.text,
+                          gendercontroller.text,
                         );
                       }
                     },
@@ -262,18 +199,16 @@ class _PageregisterState extends State<Pageregister> {
                       height: 60,
                       width: 250,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 140, 93, 76)
-                            .withOpacity(0.8),
+                        color: Colors.grey.withRed(9),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(
                         child: Text(
                           'Register',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -292,23 +227,37 @@ class _PageregisterState extends State<Pageregister> {
       IconData icon,
       TextEditingController samplecontroller,
       String? Function(String?)? validator,
-      Function() onTap) {
+      {Function()? onTap,
+      bool isPassword = false}) {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: TextFormField(
-          controller: samplecontroller,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: Colors.white),
-            ),
-            hintText: name,
-            hintStyle: TextStyle(fontSize: 14),
-            prefixIcon: GestureDetector(onTap: onTap, child: Icon(icon)),
-            fillColor: Colors.white.withOpacity(0.5),
-            filled: true,
+        controller: samplecontroller,
+        obscureText: isPassword && _isObscure,
+        readOnly: name == 'DOB',
+        onTap: name == 'DOB' ? () => _selectDate(context) : onTap,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide(color: Colors.black),
           ),
-          validator: validator),
+          hintText: name,
+          hintStyle: TextStyle(color: Colors.black),
+          prefixIcon: Icon(icon, color: Colors.black),
+          suffixIcon: isPassword
+              ? IconButton(
+                  icon: Icon(
+                    _isObscure ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.black,
+                  ),
+                  onPressed: _togglePasswordVisibility,
+                )
+              : null,
+          fillColor: Colors.grey.withOpacity(0.2),
+          filled: true,
+        ),
+        validator: validator,
+      ),
     );
   }
 }

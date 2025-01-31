@@ -28,6 +28,13 @@ class _AdoptdesignState extends State<Adoptdesign> {
     final pet = Provider.of<AdoptProvider>(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey.withRed(9),
+        title: Text(
+          'Adoption History',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: pet.loadingSpinner
           ? Column(

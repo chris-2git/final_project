@@ -256,6 +256,7 @@ class _DetailpageState extends State<Detailpage> {
                                   adopt.addAdoptPet(
                                       userid: user.currentUserId,
                                       petid: detaildata.petid);
+
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(

@@ -28,6 +28,10 @@ class _FavouriteDesginScreenState extends State<FavouriteDesgin> {
     final pet = Provider.of<FavPetsProvider>(context);
     final size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey.withRed(9),
+        title: Text('Favourites'),
+      ),
       backgroundColor: Colors.white,
       body: pet.loadingSpinner
           ? Column(

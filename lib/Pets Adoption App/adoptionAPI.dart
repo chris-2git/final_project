@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:final_project/Pets%20Adoption%20App/adoptionModel.dart';
+import 'package:final_project/Pets%20Adoption%20App/page2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 
@@ -99,7 +100,8 @@ class AdoptProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addAdoptPet({String? petid, String? userid}) async {
+  Future<void> addAdoptPet(
+      {String? petid, String? userid, BuildContext? context}) async {
     var body = {
       'petid': petid.toString(),
       'user_id': userid.toString(),
@@ -112,16 +114,16 @@ class AdoptProvider with ChangeNotifier {
           body: body);
 
       if (response.statusCode == 200) {
-        // Request successful
-        print('Added to cart successfully');
-        print('Response: ${response.body}');
+        ScaffoldMessenger.of(context!).showSnackBar(SnackBar(
+          backgroundColor: Colors.grey.withRed(9),
+          content: Text('Adopted here'),
+          duration: Duration(seconds: 5),
+        ));
       } else {
-        // Request failed with error code
-        print('Failed to add to cart. Status Code: ${response.statusCode}');
+        print(response.reasonPhrase);
       }
     } catch (e) {
-      // Exception thrown during request
-      print('Failed to add to cart. Exception: $e');
+      print(e);
     }
   }
 }
