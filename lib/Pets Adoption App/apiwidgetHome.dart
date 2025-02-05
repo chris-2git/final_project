@@ -90,7 +90,12 @@ class _PetWidgetState extends State<PetWidget> {
             ),
           ),
           child: Column(
-            children: [Text(widget.name), Text(widget.breed)],
+            children: [
+              Text(
+                widget.name,
+              ),
+              Text(widget.breed)
+            ],
           ),
         )
       ],

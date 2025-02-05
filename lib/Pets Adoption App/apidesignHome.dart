@@ -38,7 +38,7 @@ class _PetsScreenState extends State<Petsdesgin> {
               ],
             )
           : pet.pets.isEmpty
-              ? Text('No Famers...')
+              ? Text('loading...')
               : SizedBox(
                   height: size.height * 0.9,
                   child: GridView.builder(

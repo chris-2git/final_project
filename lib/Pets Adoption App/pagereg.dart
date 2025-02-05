@@ -34,7 +34,7 @@ class _PageregisterState extends State<Pageregister> {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
+      firstDate: DateTime(1900),
       lastDate: DateTime(2101),
     );
 
@@ -124,7 +124,7 @@ class _PageregisterState extends State<Pageregister> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 239, 198, 185),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Form(
           key: formkey,

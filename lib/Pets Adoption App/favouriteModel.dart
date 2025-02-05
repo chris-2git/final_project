@@ -17,7 +17,6 @@ class Favmodel {
   final String notes;
   final String addeddate;
   final String photo;
-
   Favmodel(
       {required this.favId,
       required this.petid,

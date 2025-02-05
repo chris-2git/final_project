@@ -17,9 +17,7 @@ class PetDetails {
   final String status;
   final String notes;
   final String addeddate;
-
   final String photo;
-
   PetDetails(
       {required this.petid,
       required this.name,

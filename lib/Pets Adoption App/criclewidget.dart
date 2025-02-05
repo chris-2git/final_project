@@ -40,7 +40,9 @@ class _CriclewidState extends State<Criclewid> {
               ),
             ),
           ),
-          Text(widget.name),
+          Text(
+            widget.name,
+          ),
         ],
       ),
     );
